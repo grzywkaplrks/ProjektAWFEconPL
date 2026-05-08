@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Podatek Cukrowy w Polsce — Raport Badawczy 2025</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="shortcut icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Epilogue:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:      #04091A;
+  --ink-mid:  #2A3550;
+  --ink-soft: #6B7A99;
+  --cream:    #F6F3EE;
+  --cream-dk: #EDE9E1;
+  --white:    #FFFFFF;
+  --blue:     #1356F5;
+  --blue-dk:  #0A3DBF;
+  --blue-lt:  #EEF3FF;
+  --gold:     #C8A96E;
+  --gold-lt:  #FBF5EA;
+  --red:      #C0392B;
+  --green:    #1A6B4A;
+  --line:     rgba(4,9,26,.1);
+  --line-lt:  rgba(4,9,26,.06);
+  --ff-dis:   'Cormorant Garamond', Georgia, serif;
+  --ff-body:  'Epilogue', sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior:smooth; scroll-padding-top:84px; overflow-x:hidden; max-width:100%; }
+body {
+  font-family: var(--ff-body);
+  background: var(--white);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width:100%;
+  cursor: none;
+}
+img { display:block; max-width:100%; }
+a { text-decoration:none; color:inherit; }
+
+#cur {
+  position:fixed; width:10px; height:10px; border-radius:50%;
+  background:var(--blue); pointer-events:none; z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:width .3s, height .3s, background .3s;
+}
+#cur-ring {
+  position:fixed; width:36px; height:36px; border-radius:50%;
+  border:1px solid rgba(19,86,245,.5); pointer-events:none; z-index:99998;
+  transform:translate(-50%,-50%); transition:transform .07s;
+}
+@media (hover:none) { #cur,#cur-ring { display:none; } body { cursor:auto; } }
+
+#prog { position:fixed; top:0; left:0; height:2px; background:var(--blue); z-index:10000; width:0; }
+
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:5000;
+  height:68px; display:flex; align-items:center;
+  padding:0 60px;
+  background: rgba(4,9,26,.75);
+  border-bottom:1px solid rgba(246,243,238,.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: background .4s, border-color .4s;
+  width:100%;
+  max-width:100%;
+}
+nav.frosted {
+  background: rgba(246,243,238,.96);
+  border-color: var(--line);
+}
+.nav-logo {
+  font-family:var(--ff-dis); font-size:1.05rem; font-weight:600;
+  letter-spacing:.04em; color:var(--cream); margin-right:auto;
+  display:flex; align-items:baseline; gap:4px;
+  transition: color .3s;
+  z-index:5001;
+}
+nav.frosted .nav-logo { color: var(--ink); }
+.nav-logo-dot { width:6px; height:6px; border-radius:50%; background:var(--blue); display:inline-block; margin-left:2px; margin-bottom:2px; }
+
+.nav-links { display:flex; gap:0; list-style:none; }
+.nav-links li a {
+  display:block; padding:8px 16px;
+  font-size:.7rem; font-weight:500; letter-spacing:.08em;
+  text-transform:uppercase; color:rgba(246,243,238,.7);
+  transition:color .2s; position:relative;
+}
+nav.frosted .nav-links li a { color: var(--ink-soft); }
+.nav-links li a::after {
+  content:''; position:absolute; bottom:4px; left:16px; right:16px;
+  height:1px; background:var(--blue); transform:scaleX(0);
+  transform-origin:left; transition:transform .3s;
+}
+.nav-links li a:hover { color:var(--cream); }
+nav.frosted .nav-links li a:hover { color: var(--ink); }
+.nav-links li a:hover::after, .nav-links li a.on::after { transform:scaleX(1); }
+.nav-links li a.on { color:var(--cream); }
+nav.frosted .nav-links li a.on { color:var(--ink); }
+
+.nav-github {
+  display:flex; align-items:center; justify-content:center;
+  width:36px; height:36px; border-radius:50%;
+  background: rgba(246,243,238,.1);
+  color: var(--cream);
+  margin-left:16px; transition: background .25s, color .25s, transform .2s;
+  z-index:5001;
+}
+.nav-github:hover {
+  background: var(--blue);
+  color: #fff;
+  transform: translateY(-1px);
+}
+nav.frosted .nav-github {
+  background: rgba(4,9,26,.06);
+  color: var(--ink-mid);
+}
+nav.frosted .nav-github:hover {
+  background: var(--blue);
+  color: #fff;
+}
+.nav-github svg { width:18px; height:18px; fill:currentColor; }
+
+.nav-pill {
+  margin-left:20px; padding:9px 20px;
+  background:var(--blue); color:#fff;
+  font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  border-radius:100px; transition:background .25s, transform .2s;
+  white-space:nowrap;
+}
+.nav-pill:hover { background:var(--blue-dk); transform:translateY(-1px); }
+
+.hamburger {
+  display:none;
+  width:32px; height:24px;
+  position:relative; cursor:pointer;
+  z-index:6000; margin-left:16px;
+  flex-shrink:0;
+}
+.hamburger span {
+  display:block; position:absolute; height:2px;
+  width:100%; background:var(--cream);
+  border-radius:2px; transition:.3s;
+}
+nav.frosted .hamburger span { background:var(--ink); }
+.hamburger span:nth-child(1) { top:0; }
+.hamburger span:nth-child(2) { top:11px; }
+.hamburger span:nth-child(3) { top:22px; }
+.hamburger.open span:nth-child(1) { top:11px; transform:rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { top:11px; transform:rotate(-45deg); }
+
+.mobile-menu {
+  display:none;
+  position:fixed; inset:0; z-index:4999;
+  background:rgba(4,9,26,.97);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  flex-direction:column; align-items:center;
+  justify-content:center; gap:32px;
+  opacity:0; pointer-events:none;
+  transition:opacity .3s;
+}
+.mobile-menu.open {
+  opacity:1; pointer-events:auto;
+}
+.mobile-menu a {
+  font-size:1.3rem; font-weight:500; color:var(--cream);
+  letter-spacing:.06em; text-transform:uppercase;
+  transition:color .2s;
+}
+.mobile-menu a:hover { color:var(--gold); }
+.mobile-menu .mobile-github {
+  margin-top:8px;
+  display:flex; align-items:center; gap:10px;
+  font-size:.9rem; color:var(--gold);
+  text-transform:none; letter-spacing:.03em;
+}
+.mobile-menu .mobile-github svg { width:20px; height:20px; fill:currentColor; }
+
+.hero {
+  min-height:100vh; display:grid;
+  grid-template-rows:1fr auto;
+  padding-top:68px; position:relative; overflow:hidden;
+  color:var(--cream);
+}
+.hero-video {
+  position:absolute; inset:0; z-index:0;
+  overflow:hidden;
+}
+.hero-video video {
+  width:100%; height:100%; object-fit:cover;
+  opacity:1;
+}
+.hero-overlay {
+  position:absolute; inset:0; z-index:1;
+  background: linear-gradient(135deg,rgba(4,9,26,.88) 0%,rgba(4,9,26,.75) 50%,rgba(4,9,26,.82) 100%);
+}
+.hero-lines {
+  position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none;
+}
+.hero-lines span { position:absolute; background:rgba(246,243,238,.04); }
+.hero-lines span:nth-child(1) { width:1px; height:100%; left:16.66%; }
+.hero-lines span:nth-child(2) { width:1px; height:100%; left:33.33%; }
+.hero-lines span:nth-child(3) { width:1px; height:100%; left:50%; }
+.hero-lines span:nth-child(4) { width:1px; height:100%; left:66.66%; }
+.hero-lines span:nth-child(5) { width:1px; height:100%; left:83.33%; }
+.hero-lines span:nth-child(6) { width:100%; height:1px; top:50%; }
+
+.hero-inner {
+  max-width:1400px; margin:0 auto; width:100%;
+  padding:80px 60px 60px;
+  display:grid; grid-template-columns:1fr 360px;
+  gap:72px; align-items:end;
+  position:relative; z-index:2;
+}
+.hero-kicker {
+  display:flex; align-items:center; gap:12px;
+  font-size:.68rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:28px;
+  opacity:0; animation:fadeUp .8s .1s ease forwards;
+}
+.hero-kicker::before { content:''; width:32px; height:1px; background:var(--gold); }
+.hero-h1 {
+  font-family:var(--ff-dis); font-size:clamp(2.8rem,5vw,5rem);
+  font-weight:300; line-height:1.08; letter-spacing:-.01em; color:var(--cream);
+  opacity:0; animation:fadeUp .9s .2s ease forwards;
+}
+.hero-h1 em { font-style:italic; color:var(--gold); }
+.hero-h1 strong { font-weight:700; }
+.hero-sub {
+  margin-top:24px; font-size:.9rem; line-height:1.8;
+  color:rgba(246,243,238,.6); max-width:560px;
+  opacity:0; animation:fadeUp .9s .35s ease forwards;
+}
+.hero-sub strong { color:rgba(246,243,238,.9); font-weight:500; }
+.hero-actions {
+  margin-top:40px; display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+  opacity:0; animation:fadeUp .9s .48s ease forwards;
+}
+.btn-prim {
+  padding:13px 28px; background:var(--blue); color:#fff;
+  font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  border-radius:4px; transition:background .25s, transform .2s;
+}
+.btn-prim:hover { background:var(--blue-dk); transform:translateY(-2px); }
+.btn-ghost {
+  padding:13px 28px; border:1px solid rgba(246,243,238,.25); color:rgba(246,243,238,.75);
+  font-size:.72rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase;
+  border-radius:4px; transition:border-color .25s, color .25s;
+}
+.btn-ghost:hover { border-color:rgba(246,243,238,.6); color:var(--cream); }
+
+.hero-stats {
+  display:flex; flex-direction:column;
+  border-left:1px solid rgba(246,243,238,.1);
+  padding-left:40px;
+  opacity:0; animation:fadeUp .9s .3s ease forwards;
+}
+.hero-stat { padding:22px 0; border-bottom:1px solid rgba(246,243,238,.07); }
+.hero-stat:last-child { border-bottom:none; }
+.hero-stat-val {
+  font-family:var(--ff-dis); font-size:2.4rem; font-weight:700;
+  color:var(--cream); line-height:1; display:flex; align-items:baseline; gap:5px;
+}
+.hero-stat-val sub { font-size:.95rem; font-weight:300; color:var(--gold); font-family:var(--ff-body); }
+.hero-stat-lbl { font-size:.7rem; color:rgba(246,243,238,.45); margin-top:4px; line-height:1.4; }
+.hero-stat-note { font-size:.63rem; color:var(--gold); margin-top:3px; }
+
+.hero-ticker-wrap {
+  border-top:1px solid rgba(246,243,238,.07);
+  padding:18px 0; overflow:hidden; position:relative; z-index:2;
+}
+.hero-ticker {
+  display:flex; gap:80px; white-space:nowrap;
+  animation:ticker 35s linear infinite;
+  font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(246,243,238,.3); font-weight:500;
+}
+.ticker-item { display:flex; align-items:center; gap:20px; flex-shrink:0; }
+.ticker-dot { width:4px; height:4px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+.wrap { max-width:1400px; margin:0 auto; padding:0 60px; position:relative; z-index:1; }
+.section { padding:100px 0; border-bottom:1px solid var(--line-lt); position:relative; z-index:1; }
+.section-alt { background:var(--cream); }
+.section-ink { background:var(--ink); color:var(--cream); }
+
+.s-eye {
+  display:flex; align-items:center; gap:14px;
+  font-size:.65rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:20px;
+}
+.s-eye-num { font-family:var(--ff-dis); font-size:1rem; font-weight:600; color:var(--ink-soft); min-width:24px; }
+.s-eye-line { height:1px; width:28px; background:var(--blue); flex-shrink:0; }
+.s-h2 {
+  font-family:var(--ff-dis); font-size:clamp(2rem,3.2vw,3.2rem);
+  font-weight:300; line-height:1.15; letter-spacing:-.01em; color:var(--ink);
+  margin-bottom:14px;
+}
+.s-h2 em { font-style:italic; color:var(--blue); }
+.s-h2-cream { color:var(--cream); }
+.s-desc { font-size:.9rem; color:var(--ink-soft); line-height:1.75; max-width:580px; }
+.s-desc-cream { color:rgba(246,243,238,.55); }
+
+.team-layout { display:grid; grid-template-columns:300px 1fr; gap:64px; align-items:start; margin-top:56px; }
+.team-intro-card { background:var(--ink); color:var(--cream); border-radius:4px; padding:40px 32px; position:sticky; top:88px; }
+.team-intro-card .ti-label { font-size:.62rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+.team-intro-card h3 { font-family:var(--ff-dis); font-size:1.5rem; font-weight:400; line-height:1.3; }
+.team-intro-card p { font-size:.83rem; color:rgba(246,243,238,.55); line-height:1.75; margin-top:12px; }
+.team-right { display:flex; flex-direction:column; }
+.team-card { display:grid; grid-template-columns:80px 1fr auto; align-items:center; gap:24px; padding:24px 16px; border-bottom:1px solid var(--line); transition:background .25s, padding .25s; cursor:default; opacity:0; transform:translateX(16px); }
+.team-card:first-child { border-top:1px solid var(--line); }
+.team-card.vis { opacity:1; transform:translateX(0); transition:opacity .5s ease, transform .5s ease; }
+.team-card:hover { background:var(--blue-lt); padding-left:24px; }
+.avatar-photo { width:80px; height:80px; border-radius:6px; object-fit:cover; flex-shrink:0; display:block; background:var(--cream-dk); }
+.avatar-sq { width:80px; height:80px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--ff-dis); font-size:1.5rem; font-weight:600; color:#fff; flex-shrink:0; }
+.t-name { font-family:var(--ff-dis); font-size:1.25rem; font-weight:600; color:var(--ink); }
+.t-role { font-size:.78rem; color:var(--ink-soft); margin-top:3px; line-height:1.5; }
+.t-dept { display:inline-block; margin-top:8px; font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); background:var(--blue-lt); padding:3px 10px; border-radius:2px; }
+.team-arrow { font-size:1rem; color:var(--cream-dk); transition:color .2s, transform .2s; }
+.team-card:hover .team-arrow { color:var(--blue); transform:translateX(4px); }
+.team-competencies { margin-top:48px; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+.team-comp-card { background:var(--white); padding:28px 24px; transition:background .25s; }
+.team-comp-card:hover { background:var(--cream); }
+.team-comp-icon { font-size:1.6rem; margin-bottom:12px; }
+.team-comp-title { font-family:var(--ff-dis); font-size:1rem; font-weight:600; color:var(--ink); margin-bottom:6px; }
+.team-comp-desc { font-size:.76rem; color:var(--ink-soft); line-height:1.6; }
+.team-comp-members { font-size:.65rem; font-weight:600; color:var(--blue); margin-top:8px; letter-spacing:.04em; }
+.team-stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:48px; }
+.team-stat-cell { background:var(--white); padding:24px 18px; text-align:center; transition:background .25s; }
+.team-stat-cell:hover { background:var(--cream); }
+.team-stat-num { font-family:var(--ff-dis); font-size:2rem; font-weight:700; color:var(--blue); line-height:1; }
+.team-stat-lbl { font-size:.7rem; color:var(--ink-soft); margin-top:6px; line-height:1.4; }
+
+.sponsor-layout { margin-top:72px; border-top:1px solid var(--line); padding-top:56px; }
+.sponsor-top { display:grid; grid-template-columns:1fr 400px; gap:48px; align-items:start; margin-bottom:40px; }
+.sponsor-notice { background:var(--gold-lt); border-left:3px solid var(--gold); padding:20px 22px; font-size:.8rem; line-height:1.65; color:var(--ink-mid); border-radius:0 4px 4px 0; }
+.sponsor-notice strong { color:#92400E; display:block; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; }
+.sponsors-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+.sp { background:var(--white); padding:28px 24px; display:flex; flex-direction:column; justify-content:space-between; min-height:150px; transition:background .25s; position:relative; overflow:hidden; }
+.sp::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--blue); transform:scaleX(0); transform-origin:left; transition:transform .35s; }
+.sp:hover { background:var(--cream); }
+.sp:hover::after { transform:scaleX(1); }
+.sp-emoji { font-size:2rem; line-height:1; }
+.sp-name { font-family:var(--ff-dis); font-size:1.05rem; font-weight:600; color:var(--ink); margin-top:auto; padding-top:14px; }
+.sp-tier { font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+.sp-badge { display:inline-block; font-size:.58rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 9px; border-radius:2px; margin-top:8px; }
+.badge-gold { background:#FEF3C7; color:#92400E; border:1px solid #FCD34D; }
+.badge-silver { background:var(--cream); color:var(--ink-soft); border:1px solid var(--line); }
+.badge-local { background:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; }
+.sponsor-fine { margin-top:16px; font-size:.7rem; color:var(--ink-soft); font-style:italic; line-height:1.6; border-top:1px solid var(--line); padding-top:14px; }
+
+.finance-hero { display:grid; grid-template-columns:1fr 1fr; gap:56px; margin-top:48px; margin-bottom:48px; }
+.finance-card { background:var(--white); border:1px solid var(--line); border-radius:6px; padding:36px 32px; transition:box-shadow .3s, transform .2s; }
+.finance-card:hover { box-shadow:0 12px 48px rgba(4,9,26,.08); transform:translateY(-2px); }
+.finance-card-icon { font-size:2.2rem; margin-bottom:18px; line-height:1; }
+.finance-card h4 { font-family:var(--ff-dis); font-size:1.3rem; font-weight:600; color:var(--ink); margin-bottom:10px; line-height:1.3; }
+.finance-card p { font-size:.82rem; color:var(--ink-soft); line-height:1.7; margin-bottom:16px; }
+.finance-amount { font-family:var(--ff-dis); font-size:2rem; font-weight:700; color:var(--blue); margin-bottom:4px; line-height:1; }
+.finance-amount-label { font-size:.65rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); }
+.finance-bar-wrap { margin-top:18px; background:var(--cream-dk); border-radius:2px; height:6px; overflow:hidden; }
+.finance-bar { height:100%; border-radius:2px; width:0; background:var(--blue); transition:width 1.4s cubic-bezier(.16,1,.3,1); }
+.finance-bar.gold { background:var(--gold); }
+.finance-bar.green { background:var(--green); }
+.finance-table-wrap { margin-top:48px; overflow-x:auto; }
+.finance-table { width:100%; border-collapse:collapse; font-size:.83rem; }
+.finance-table thead th { text-align:left; padding:12px 16px; font-size:.6rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); border-bottom:2px solid var(--ink); background:var(--cream); white-space:nowrap; }
+.finance-table tbody td { padding:14px 16px; border-bottom:1px solid var(--line); color:var(--ink-mid); vertical-align:top; }
+.finance-table tbody tr:hover td { background:var(--blue-lt); }
+.finance-table tfoot td { padding:14px 16px; font-weight:700; color:var(--ink); background:var(--cream); border-top:2px solid var(--ink); }
+.finance-table .fv { font-family:var(--ff-dis); font-size:1.05rem; font-weight:700; color:var(--blue); }
+.finance-table .fg { color:var(--green); font-weight:600; }
+.finance-table .fr { color:var(--red); font-weight:600; }
+.finance-milestones { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:48px; }
+.finance-milestone { background:var(--white); padding:24px 20px; text-align:center; transition:background .25s; }
+.finance-milestone:hover { background:var(--cream); }
+.finance-milestone-year { font-family:var(--ff-dis); font-size:1.4rem; font-weight:700; color:var(--blue); line-height:1; margin-bottom:8px; }
+.finance-milestone-desc { font-size:.74rem; color:var(--ink-mid); line-height:1.5; }
+.finance-milestone-tag { display:inline-block; margin-top:8px; font-size:.56rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 10px; border-radius:2px; }
+.tag-blue { background:var(--blue-lt); color:var(--blue); }
+.tag-gold { background:var(--gold-lt); color:#92400E; }
+.tag-green { background:#ECFDF5; color:#065F46; }
+.finance-allocation { display:grid; grid-template-columns:2fr 1fr; gap:40px; margin-top:48px; align-items:start; }
+.finance-pie-legend { display:flex; flex-direction:column; gap:12px; }
+.finance-pie-item { display:flex; align-items:center; gap:12px; }
+.finance-pie-dot { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+.finance-pie-label { font-size:.8rem; color:var(--ink-mid); line-height:1.4; }
+.finance-pie-val { font-weight:700; color:var(--ink); margin-left:auto; font-family:var(--ff-dis); font-size:1rem; }
+.finance-transparency { margin-top:48px; background:var(--cream); border-radius:4px; padding:28px 32px; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; }
+.finance-transparency h4 { font-family:var(--ff-dis); font-size:1.15rem; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.finance-transparency p { font-size:.78rem; color:var(--ink-soft); line-height:1.65; }
+.finance-download { padding:12px 24px; background:var(--blue); color:#fff; font-size:.68rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; border-radius:4px; white-space:nowrap; transition:background .25s, transform .2s; cursor:pointer; border:none; }
+.finance-download:hover { background:var(--blue-dk); transform:translateY(-1px); }
+
+.bmc-toc { display:grid; grid-template-columns:repeat(9,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-bottom:64px; }
+.bmc-toc-item { background:var(--cream-dk); padding:18px 12px; display:flex; flex-direction:column; gap:6px; transition:background .25s; cursor:pointer; text-align:center; }
+.bmc-toc-item:hover { background:var(--ink); }
+.bmc-toc-item:hover .btoc-num, .bmc-toc-item:hover .btoc-label { color:var(--cream); }
+.btoc-num { font-family:var(--ff-dis); font-size:1.3rem; font-weight:700; color:var(--blue); line-height:1; }
+.btoc-label { font-size:.58rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-soft); line-height:1.35; }
+
+.bmc-blk { display:grid; grid-template-columns:180px 1fr; border:1px solid var(--line); margin-bottom:-1px; opacity:0; transform:translateY(14px); }
+.bmc-blk.vis { opacity:1; transform:translateY(0); transition:opacity .55s ease, transform .55s ease; }
+.bmc-blk:hover { position:relative; z-index:2; box-shadow:0 6px 40px rgba(4,9,26,.08); }
+.bmc-blk-left { background:var(--ink); padding:36px 24px; display:flex; flex-direction:column; justify-content:space-between; flex-shrink:0; }
+.bmc-blk-num { font-family:var(--ff-dis); font-size:3.5rem; font-weight:700; color:rgba(246,243,238,.1); line-height:1; }
+.bmc-blk-title { font-family:var(--ff-dis); font-size:1.05rem; font-weight:600; color:var(--cream); line-height:1.35; margin-top:auto; }
+.bmc-blk-sub { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-top:5px; }
+.bmc-blk-right { padding:36px 44px; background:var(--white); min-width:0; }
+.bmc-blk:hover .bmc-blk-right { background:var(--cream); }
+.bmc-blk-right > p { font-size:.86rem; color:var(--ink-mid); line-height:1.75; margin-bottom:20px; }
+.bmc-section-title { font-size:.63rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); margin:0 0 10px 0; padding:0; }
+.bmc-section-title:not(:first-child) { margin-top:14px; }
+.bmc-two  { display:grid; grid-template-columns:1fr 1fr; gap:32px; min-width:0; }
+.bmc-three{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; min-width:0; }
+.bmc-two > *, .bmc-three > * { min-width:0; overflow:hidden; }
+
+.bl { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; }
+.bl li { display:flex; gap:10px; padding:7px 0; border-bottom:1px solid rgba(4,9,26,.06); font-size:.83rem; color:var(--ink-mid); line-height:1.6; align-items:flex-start; }
+.bl li:last-child { border-bottom:none; }
+.bl li::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--blue); flex-shrink:0; margin-top:8px; }
+.bl li strong { color:var(--ink); font-weight:600; }
+
+.pt { width:100%; border-collapse:collapse; font-size:.82rem; }
+.pt thead th { text-align:left; padding:10px 14px; font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); border-bottom:2px solid var(--ink); white-space:nowrap; }
+.pt tbody td { padding:12px 14px; border-bottom:1px solid var(--line); color:var(--ink-mid); vertical-align:top; word-wrap:break-word; }
+.pt.hover-light tbody tr:hover td { background:var(--blue-lt); }
+.pt tfoot td { padding:13px 14px; font-weight:700; color:var(--ink); background:var(--cream); border-top:2px solid var(--ink); }
+.pt .tv { font-family:var(--ff-dis); font-size:1.05rem; font-weight:700; color:var(--blue); }
+.pt .tg { color:var(--green); font-weight:600; }
+.pt .tr { color:var(--red); font-weight:600; }
+
+.alert-strip { margin-top:18px; padding:14px 18px; display:flex; gap:12px; align-items:flex-start; font-size:.8rem; line-height:1.65; border-radius:2px; }
+.alert-blue  { background:var(--blue-lt); border-left:3px solid var(--blue); color:var(--ink-mid); }
+.alert-gold  { background:var(--gold-lt); border-left:3px solid var(--gold); color:#5C3D0A; }
+.alert-red   { background:#FEF2F2; border-left:3px solid var(--red); color:#7F1D1D; }
+.alert-green { background:#F0FDF4; border-left:3px solid var(--green); color:#14532D; }
+.alert-icon  { font-size:1rem; flex-shrink:0; margin-top:2px; }
+
+.kpi-strip { display:grid; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:18px; }
+.kpi-strip.k4 { grid-template-columns:repeat(4,1fr); }
+.kpi-strip.k3 { grid-template-columns:repeat(3,1fr); }
+.kpi-strip.k2 { grid-template-columns:repeat(2,1fr); }
+.kpi-cell { background:var(--cream); padding:18px 14px; text-align:center; }
+.kv { font-family:var(--ff-dis); font-size:1.75rem; font-weight:700; color:var(--blue); line-height:1; }
+.kv.green { color:var(--green); }
+.kl { font-size:.67rem; color:var(--ink-soft); margin-top:5px; line-height:1.4; }
+
+.bch { display:flex; flex-direction:column; gap:10px; margin-top:10px; }
+.bcr { display:flex; align-items:center; gap:12px; }
+.bcl { font-size:.76rem; color:var(--ink-mid); flex:0 0 200px; line-height:1.3; }
+.bct { flex:1; height:6px; background:rgba(4,9,26,.08); border-radius:1px; overflow:hidden; min-width:40px; }
+.bcf { height:100%; border-radius:1px; width:0; background:var(--blue); transition:width 1.4s cubic-bezier(.16,1,.3,1); }
+.bcf.green { background:var(--green); }
+.bcf.gold  { background:var(--gold); }
+.bcv { font-size:.76rem; font-weight:700; color:var(--ink); width:44px; text-align:right; flex-shrink:0; font-family:var(--ff-dis); }
+
+.sroi-hero { display:grid; grid-template-columns:1fr 440px; gap:72px; align-items:center; margin-bottom:72px; }
+.sroi-big-num { font-family:var(--ff-dis); font-size:clamp(5rem,12vw,10rem); font-weight:700; line-height:.9; color:var(--cream); display:flex; align-items:baseline; gap:10px; }
+.sroi-big-num sub { font-size:1.6rem; font-weight:300; color:var(--gold); margin-bottom:.4rem; font-family:var(--ff-body); }
+.sroi-big-desc { font-size:.86rem; color:rgba(246,243,238,.5); line-height:1.75; margin-top:22px; max-width:480px; }
+.sroi-cards { display:flex; flex-direction:column; gap:1px; background:rgba(246,243,238,.06); }
+.sroi-card { background:rgba(246,243,238,.03); padding:20px 24px; display:grid; grid-template-columns:1fr auto; align-items:center; gap:16px; transition:background .25s; }
+.sroi-card:hover { background:rgba(246,243,238,.08); }
+.sc-label { font-size:.78rem; color:rgba(246,243,238,.5); line-height:1.5; }
+.sc-label strong { display:block; font-weight:600; color:rgba(246,243,238,.85); margin-bottom:2px; font-size:.85rem; }
+.sc-val { font-family:var(--ff-dis); font-size:1.4rem; font-weight:700; color:var(--gold); white-space:nowrap; }
+
+.pt-dark { width:100%; border-collapse:collapse; font-size:.82rem; }
+.pt-dark thead th { text-align:left; padding:10px 14px; font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(246,243,238,.4); border-bottom:1px solid rgba(246,243,238,.12); white-space:nowrap; }
+.pt-dark tbody td { padding:12px 14px; border-bottom:1px solid rgba(246,243,238,.06); color:rgba(246,243,238,.65); vertical-align:top; word-wrap:break-word; }
+.pt-dark tbody tr:hover td { background:rgba(19,86,245,.15); color:rgba(246,243,238,.9); }
+.pt-dark tfoot td { padding:13px 14px; font-weight:700; color:var(--cream); background:rgba(246,243,238,.06); border-top:1px solid rgba(246,243,238,.12); }
+.pt-dark .tv  { font-family:var(--ff-dis); font-size:1.05rem; font-weight:700; color:var(--gold); }
+.pt-dark .tg  { color:#4ADE80; font-weight:600; }
+.pt-dark .tr  { color:#FCA5A5; font-weight:600; }
+.pt-dark .tv.tg { color:#4ADE80; }
+
+.bch-dk .bcl { color:rgba(246,243,238,.55); }
+.bch-dk .bct { background:rgba(246,243,246,.08); }
+.bch-dk .bcv { color:var(--cream); }
+
+.sroi-methodology { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(246,243,238,.06); border:1px solid rgba(246,243,238,.08); margin-top:48px; }
+.sroi-meth-card { background:rgba(246,243,238,.02); padding:28px 24px; transition:background .25s; }
+.sroi-meth-card:hover { background:rgba(246,243,238,.06); }
+.sroi-meth-icon { font-size:1.8rem; margin-bottom:16px; }
+.sroi-meth-title { font-family:var(--ff-dis); font-size:1rem; font-weight:600; color:var(--cream); margin-bottom:8px; }
+.sroi-meth-desc { font-size:.76rem; color:rgba(246,243,238,.45); line-height:1.7; }
+
+.sroi-comparison { display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-top:56px; align-items:start; }
+.sroi-comp-card { background:rgba(246,243,238,.03); border:1px solid rgba(246,243,238,.06); border-radius:4px; padding:32px; transition:background .25s; }
+.sroi-comp-card:hover { background:rgba(246,243,238,.06); }
+.sroi-comp-card h4 { font-family:var(--ff-dis); font-size:1.2rem; font-weight:600; color:var(--cream); margin-bottom:16px; }
+.sroi-comp-card p { font-size:.82rem; color:rgba(246,243,238,.5); line-height:1.75; margin-bottom:12px; }
+
+.wn-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:56px; }
+.wn-item { background:var(--white); padding:36px 32px; display:flex; flex-direction:column; gap:14px; transition:background .3s; cursor:default; opacity:0; transform:translateY(14px); }
+.wn-item.vis { opacity:1; transform:translateY(0); transition:opacity .5s ease, transform .5s ease; }
+.wn-item:hover { background:var(--ink); }
+.wn-item:hover .wn-n  { color:rgba(246,243,238,.1); }
+.wn-item:hover .wn-h  { color:var(--cream); }
+.wn-item:hover .wn-p  { color:rgba(246,243,238,.6); }
+.wn-item:hover .wn-footer { color:var(--gold); border-color:rgba(246,243,238,.08); }
+.wn-n { font-family:var(--ff-dis); font-size:3rem; font-weight:700; color:var(--cream-dk); line-height:1; transition:color .3s; }
+.wn-icon { font-size:1.4rem; }
+.wn-h { font-family:var(--ff-dis); font-size:1.1rem; font-weight:600; color:var(--ink); line-height:1.3; transition:color .3s; }
+.wn-p { font-size:.82rem; color:var(--ink-soft); line-height:1.7; flex:1; transition:color .3s; }
+.wn-footer { font-size:.72rem; color:var(--ink-soft); margin-top:auto; padding-top:16px; border-top:1px solid var(--line); transition:color .3s, border-color .3s; }
+
+.pull-quote { border-top:2px solid var(--ink); border-bottom:2px solid var(--ink); padding:44px 0; margin:72px 0; display:grid; grid-template-columns:72px 1fr; gap:28px; align-items:start; }
+.pq-mark { font-family:var(--ff-dis); font-size:5rem; font-weight:700; color:var(--blue); line-height:.8; }
+.pq-text { font-family:var(--ff-dis); font-size:clamp(1.2rem,2vw,1.7rem); font-weight:400; font-style:italic; line-height:1.5; color:var(--ink); }
+.pq-cite { font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:14px; }
+
+.rec-detail { margin-top:64px; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+.rec-card { background:var(--white); padding:32px 28px; transition:background .25s; }
+.rec-card:hover { background:var(--cream); }
+.rec-card-icon { font-size:2rem; margin-bottom:16px; }
+.rec-card h4 { font-family:var(--ff-dis); font-size:1rem; font-weight:600; color:var(--ink); margin-bottom:8px; line-height:1.3; }
+.rec-card p { font-size:.78rem; color:var(--ink-soft); line-height:1.7; }
+.rec-card .rec-timeline { font-size:.65rem; font-weight:600; color:var(--blue); margin-top:8px; letter-spacing:.06em; text-transform:uppercase; }
+
+.rec-roadmap { margin-top:48px; background:var(--cream); border-radius:4px; padding:36px 40px; }
+.rec-roadmap h3 { font-family:var(--ff-dis); font-size:1.4rem; font-weight:600; color:var(--ink); margin-bottom:20px; }
+.rec-timeline-row { display:flex; gap:0; margin-top:24px; }
+.rec-timeline-step { flex:1; padding:20px 16px; border-left:1px solid var(--line); text-align:center; transition:background .25s; }
+.rec-timeline-step:first-child { border-left:none; }
+.rec-timeline-step:hover { background:rgba(19,86,245,.04); }
+.rec-step-num { font-family:var(--ff-dis); font-size:2rem; font-weight:700; color:var(--blue); line-height:1; }
+.rec-step-title { font-size:.72rem; font-weight:600; color:var(--ink); margin-top:8px; line-height:1.3; }
+.rec-step-desc { font-size:.68rem; color:var(--ink-soft); margin-top:6px; line-height:1.5; }
+
+.footer { background:var(--ink); color:rgba(246,243,238,.45); padding:72px 60px 36px; position:relative; z-index:1; }
+.footer-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:64px; border-bottom:1px solid rgba(246,243,238,.06); padding-bottom:48px; margin-bottom:32px; }
+.footer-brand { font-family:var(--ff-dis); font-size:1.5rem; font-weight:400; color:var(--cream); margin-bottom:14px; }
+.footer-grid p { font-size:.8rem; line-height:1.7; }
+.footer-col-title { font-size:.62rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+.footer-col ul { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.footer-col li { font-size:.8rem; color:rgba(246,243,238,.4); }
+.footer-col li a { transition:color .2s; }
+.footer-col li a:hover { color:var(--gold); }
+.footer-bottom { max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:flex-start; gap:24px; }
+.footer-bottom p { font-size:.7rem; }
+.footer-italic { color:var(--gold); font-style:italic; font-size:.67rem; max-width:460px; text-align:right; }
+
+.footer-github {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:18px;
+  padding:10px 16px;
+  background:rgba(246,243,238,.06);
+  border:1px solid rgba(246,243,238,.12);
+  border-radius:6px;
+  width:fit-content;
+  color:rgba(246,243,238,.6);
+  font-size:.8rem;
+  font-weight:500;
+  letter-spacing:.03em;
+  transition:background .25s, border-color .25s, color .25s;
+  line-height:1;
+}
+.footer-github:hover {
+  background:rgba(246,243,238,.11);
+  border-color:rgba(246,243,238,.28);
+  color:var(--cream);
+}
+.footer-github svg {
+  width:18px; height:18px;
+  fill:currentColor;
+  flex-shrink:0;
+}
+
+/* Bibliography section */
+.footer-bib {
+  max-width:1400px; margin:0 auto;
+  border-top:1px solid rgba(246,243,238,.06);
+  padding-top:40px; margin-top:0;
+  padding-bottom:40px;
+  border-bottom:1px solid rgba(246,243,238,.06);
+  margin-bottom:32px;
+}
+.footer-bib-title {
+  font-size:.58rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:28px; display:flex; align-items:center; gap:12px;
+}
+.footer-bib-title::after { content:''; flex:1; height:1px; background:rgba(246,243,238,.08); }
+.footer-bib-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:0 48px;
+}
+.footer-bib-cat { margin-bottom:24px; }
+.footer-bib-cat-label {
+  font-size:.55rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:rgba(246,243,238,.3); margin-bottom:10px; padding-bottom:6px;
+  border-bottom:1px solid rgba(246,243,238,.06);
+}
+.footer-bib-list { list-style:none; display:flex; flex-direction:column; gap:7px; }
+.footer-bib-list li {
+  font-size:.72rem; color:rgba(246,243,238,.38); line-height:1.5;
+  padding-left:14px; position:relative;
+}
+.footer-bib-list li::before {
+  content:''; position:absolute; left:0; top:8px;
+  width:4px; height:4px; border-radius:50%; background:rgba(246,243,238,.15);
+}
+.footer-bib-list li em { color:rgba(246,243,238,.22); font-style:normal; }
+.footer-bib-list li strong { color:rgba(246,243,238,.55); font-weight:500; }
+
+@media (max-width:900px) {
+  .footer-bib-grid { grid-template-columns:1fr; gap:0; }
+  .footer-bib { padding-top:32px; padding-bottom:32px; }
+}
+
+#stt { position:fixed; bottom:28px; right:28px; width:44px; height:44px; border:1px solid var(--line); background:var(--white); color:var(--ink); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.85rem; cursor:pointer; z-index:900; opacity:0; transform:translateY(10px); transition:opacity .3s, transform .3s, background .2s, color .2s, border-color .2s; box-shadow:0 4px 20px rgba(4,9,26,.1); border:none; }
+#stt.on { opacity:1; transform:translateY(0); }
+#stt:hover { background:var(--blue); color:#fff; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+@media (max-width:1100px) {
+  .bmc-two   { grid-template-columns:1fr; gap:20px; }
+  .bmc-three { grid-template-columns:1fr; gap:16px; }
+  .kpi-strip.k4 { grid-template-columns:repeat(2,1fr); }
+  .sroi-hero { grid-template-columns:1fr; }
+  .wn-grid   { grid-template-columns:repeat(2,1fr); }
+  .finance-hero { grid-template-columns:1fr; gap:24px; }
+  .finance-allocation { grid-template-columns:1fr; }
+  .finance-milestones { grid-template-columns:repeat(2,1fr); }
+  .team-competencies { grid-template-columns:repeat(2,1fr); }
+  .team-stats-row { grid-template-columns:repeat(2,1fr); }
+  .sroi-methodology { grid-template-columns:repeat(2,1fr); }
+  .sroi-comparison { grid-template-columns:1fr; gap:24px; }
+  .rec-detail { grid-template-columns:repeat(2,1fr); }
+}
+
+@media (max-width:900px) {
+  nav { padding:0 20px; }
+  .nav-links { display:none; }
+  .nav-pill  { display:none; }
+  .nav-github { margin-left:auto; margin-right:8px; }
+  .hamburger { display:block; }
+  .mobile-menu { display:flex; }
+  .wrap { padding:0 16px; }
+  .section { padding:56px 0; }
+  /* Prevent all horizontal overflow */
+  .wrap, .section, .hero-inner, .bmc-blk, .bmc-blk-right,
+  .team-layout, .team-right, .finance-hero, .finance-allocation,
+  .sroi-hero, .sroi-comparison, .sroi-methodology,
+  .rec-detail, .rec-roadmap, .wn-grid, .footer-grid,
+  .sponsors-grid, .finance-milestones, .team-competencies, .team-stats-row {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  /* Tables: allow horizontal scroll within their container */
+  .pt, .pt-dark, .finance-table { font-size:.72rem; }
+  .pt thead th, .pt-dark thead th { font-size:.54rem; padding:8px 6px; white-space:normal; }
+  .pt tbody td, .pt tfoot td { padding:8px 6px; white-space:normal !important; }
+  .pt-dark thead th, .pt-dark tbody td, .pt-dark tfoot td { padding:8px 6px; font-size:.72rem; white-space:normal !important; }
+  .bmc-blk-right { overflow-x:auto; }
+  .bmc-two, .bmc-three { overflow-x:hidden; }
+  /* Hero */
+  .hero-inner { grid-template-columns:1fr; gap:40px; padding:48px 16px 40px; }
+  .hero-stats { border-left:none; padding-left:0; border-top:1px solid rgba(246,243,238,.1); padding-top:28px; display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(246,243,238,.08); }
+  .hero-stat { background:rgba(4,9,26,.4); padding:16px 12px; border-bottom:none; border-right:1px solid rgba(246,243,238,.08); }
+  .hero-stat-val { font-size:1.6rem; }
+  .hero-h1 { font-size:clamp(2rem,6vw,2.8rem); line-height:1.15; }
+  .hero-actions { flex-direction:column; align-items:stretch; }
+  .btn-prim, .btn-ghost { width:100%; text-align:center; }
+  /* Team */
+  .team-layout { grid-template-columns:1fr; gap:32px; }
+  .team-intro-card { position:static; }
+  .team-card { grid-template-columns:64px 1fr; gap:16px; padding:18px 12px; }
+  .avatar-photo, .avatar-sq { width:64px; height:64px; }
+  .t-name { font-size:1.1rem; }
+  .t-role { font-size:.72rem; }
+  .team-arrow { display:none; }
+  .team-competencies { grid-template-columns:1fr; }
+  .team-stats-row { grid-template-columns:repeat(2,1fr); }
+  .team-stat-cell { padding:16px 12px; }
+  .team-stat-num { font-size:1.6rem; }
+  /* Sponsors */
+  .sponsor-top { grid-template-columns:1fr; gap:20px; }
+  .sponsors-grid { grid-template-columns:repeat(2,1fr); }
+  .sp { min-height:130px; padding:22px 18px; }
+  .sp-name { font-size:.95rem; }
+  /* Finance */
+  .finance-hero { grid-template-columns:1fr; gap:20px; }
+  .finance-card { padding:28px 24px; }
+  .finance-amount { font-size:1.7rem; }
+  .finance-allocation { grid-template-columns:1fr; gap:24px; }
+  .finance-milestones { grid-template-columns:repeat(2,1fr); }
+  .finance-transparency { grid-template-columns:1fr; text-align:center; padding:24px 16px; }
+  .finance-transparency > div:last-child { justify-self:center; }
+  .finance-table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  /* BMC */
+  .bmc-toc { grid-template-columns:repeat(3,1fr); margin-bottom:40px; }
+  .bmc-toc-item { padding:14px 10px; }
+  .btoc-num { font-size:1.1rem; }
+  .btoc-label { font-size:.55rem; }
+  .bmc-blk { grid-template-columns:1fr; }
+  .bmc-blk-left { padding:24px 16px; flex-direction:row; align-items:center; gap:16px; }
+  .bmc-blk-num { font-size:2.5rem; }
+  .bmc-blk-title { font-size:.95rem; margin-top:0; }
+  .bmc-blk-right { padding:20px 16px; }
+  .bmc-blk-right > p { font-size:.8rem; }
+  .bmc-section-title { font-size:.6rem; }
+  /* SROI */
+  .sroi-big-num { font-size:clamp(3.5rem,12vw,6rem); }
+  .sroi-hero { gap:40px; grid-template-columns:1fr; }
+  .sroi-cards { gap:0; }
+  .sroi-card { padding:16px 20px; }
+  .sc-val { font-size:1.2rem; }
+  .kpi-strip.k3 { grid-template-columns:repeat(3,1fr); }
+  .kpi-strip.k4 { grid-template-columns:repeat(2,1fr); }
+  /* Wnioski */
+  .wn-grid { grid-template-columns:1fr; }
+  .wn-item { padding:28px 20px; }
+  .bch .bcl, .bch-dk .bcl { flex:0 0 110px; font-size:.7rem; }
+  .bcr { gap:8px; }
+  /* Methodology */
+  .sroi-methodology { grid-template-columns:1fr; }
+  .sroi-comparison { grid-template-columns:1fr; }
+  /* Rekomendacje */
+  .rec-detail { grid-template-columns:1fr; }
+  .rec-timeline-row { flex-direction:column; }
+  .rec-timeline-step { border-left:none; border-top:1px solid var(--line); padding:16px 12px; }
+  .rec-timeline-step:first-child { border-top:none; }
+  .rec-roadmap { padding:24px 16px; }
+  .rec-roadmap h3 { font-size:1.1rem; }
+  /* Pull quote */
+  .pull-quote { grid-template-columns:1fr; gap:0; padding:32px 0; margin:48px 0; }
+  .pq-mark { display:none; }
+  .pq-text { font-size:1.1rem; }
+  /* Footer */
+  .footer { padding:48px 16px 28px; }
+  .footer-grid { grid-template-columns:1fr; gap:32px; }
+  .footer-bottom { flex-direction:column; align-items:flex-start; gap:16px; }
+  .footer-italic { text-align:left; }
+  /* Misc */
+  .alert-strip { font-size:.74rem; padding:12px 14px; }
+  .bl li { font-size:.76rem; }
+  #stt { bottom:20px; right:20px; width:40px; height:40px; font-size:.75rem; }
+}
+
+@media (max-width:540px) {
+  .hero-stats { grid-template-columns:1fr; }
+  .hero-stat { border-right:none; border-bottom:1px solid rgba(246,243,238,.08); }
+  .hero-stat-val { font-size:1.4rem; }
+  .hero-h1 { font-size:clamp(1.8rem,7vw,2.2rem); }
+  .hero-sub { font-size:.82rem; }
+  .hero-kicker { font-size:.6rem; }
+  .section { padding:44px 0; }
+  .s-h2 { font-size:1.5rem; }
+  .s-desc { font-size:.82rem; }
+  .bmc-toc { grid-template-columns:repeat(3,1fr); }
+  .sponsors-grid { grid-template-columns:1fr 1fr; }
+  .finance-milestones { grid-template-columns:1fr; }
+  .team-competencies { grid-template-columns:1fr; }
+  .team-stats-row { grid-template-columns:1fr 1fr; }
+  .team-stat-cell { padding:14px 10px; }
+  .team-stat-num { font-size:1.4rem; }
+  .kpi-strip.k4, .kpi-strip.k3, .kpi-strip.k2 { grid-template-columns:1fr 1fr; }
+  .kv { font-size:1.4rem; }
+  .bch .bcl, .bch-dk .bcl { flex:0 0 90px; font-size:.64rem; }
+  .wn-grid { grid-template-columns:1fr; }
+  .wn-item { padding:22px 16px; }
+  .wn-n { font-size:2.4rem; }
+  .wn-h { font-size:.95rem; }
+  .wn-p { font-size:.78rem; }
+  .sroi-methodology { grid-template-columns:1fr; }
+  .sroi-meth-card { padding:22px 16px; }
+  .rec-detail { grid-template-columns:1fr; }
+  .rec-card { padding:22px 16px; }
+  .finance-card { padding:20px 16px; }
+  .finance-amount { font-size:1.5rem; }
+  .finance-table { font-size:.68rem; }
+  .finance-table thead th { font-size:.52rem; padding:8px 6px; }
+  .finance-table tbody td { padding:10px 6px; }
+  .nav-github { width:32px; height:32px; }
+  .nav-github svg { width:16px; height:16px; }
+  .footer-bottom p { font-size:.65rem; }
+  .bmc-blk-right { padding:16px 14px; }
+  .pt, .pt-dark { font-size:.68rem; }
+  .pt thead th, .pt-dark thead th { font-size:.52rem; padding:6px 5px; }
+  .pt tbody td, .pt tfoot td, .pt-dark tbody td, .pt-dark tfoot td { padding:8px 5px; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<div id="prog"></div>
+
+<nav id="nav">
+  <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;" title="Wróć na górę">AWFEcon<span class="nav-logo-dot"></span>PL</div>
+  <ul class="nav-links">
+    <li><a href="#zespol">Zespół</a></li>
+    <li><a href="#finansowanie">Finansowanie</a></li>
+    <li><a href="#bmc">Model BMC</a></li>
+    <li><a href="#analiza">Analiza SROI</a></li>
+    <li><a href="#wnioski">Wnioski</a></li>
+  </ul>
+  <a class="nav-github" href="https://github.com/grzywkaplrks/promocjazdrowiaprojektawf" target="_blank" rel="noopener noreferrer" title="Repozytorium GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+  </a>
+  <a class="nav-pill" href="#bmc">Przeglądaj raport</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#zespol" onclick="closeMenu()">Zespół</a>
+  <a href="#finansowanie" onclick="closeMenu()">Finansowanie</a>
+  <a href="#bmc" onclick="closeMenu()">Model BMC</a>
+  <a href="#analiza" onclick="closeMenu()">Analiza SROI</a>
+  <a href="#wnioski" onclick="closeMenu()">Wnioski</a>
+  <a class="mobile-github" href="https://github.com/grzywkaplrks/promocjazdrowiaprojektawf" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+    Repozytorium GitHub
+  </a>
+</div>
+
+<div class="hero" id="top">
+  <div class="hero-video">
+    <video autoplay muted loop playsinline>
+      <source src="film.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-lines"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+  <div class="hero-inner">
+    <div>
+      <div class="hero-kicker">Projekt Badawczy &nbsp;·&nbsp; Promocja Zdrowia &nbsp;·&nbsp; 2025</div>
+      <h1 class="hero-h1">
+        Efektywność<br>
+        <em>ekonomiczna</em><br>
+        podatku<br>
+        <strong>cukrowego</strong><br>
+        w Polsce
+      </h1>
+      <p class="hero-sub">
+        Analiza wpływu opłaty cukrowej na finansowanie programów profilaktycznych
+        <strong>versus koszty leczenia powikłań otyłości</strong> —
+        model Business Model Canvas (BMC‑9) z zastosowaniem wskaźnika SROI.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-prim" href="#bmc">Przeglądaj raport</a>
+        <a class="btn-ghost" href="#zespol">Zespół badawczy</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">3,2<sub>mld zł</sub></div>
+        <div class="hero-stat-lbl">Roczne wpływy z podatku cukrowego</div>
+        <div class="hero-stat-note">↑ vs. 1,3 mld zł w roku 2021</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">9,2<sub>:1</sub></div>
+        <div class="hero-stat-lbl">Wskaźnik SROI — wartość społeczna na 1 zł nakładu</div>
+        <div class="hero-stat-note">Horyzont 5 lat · Social Value UK</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">27<sub>%</sub></div>
+        <div class="hero-stat-lbl">Polaków z otyłością BMI ≥ 30 (GUS 2024)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">−15<sub>%</sub></div>
+        <div class="hero-stat-lbl">Redukcja spożycia napojów słodzonych po opodatkowaniu</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-ticker-wrap">
+    <div class="hero-ticker">
+      <span class="ticker-item"><span class="ticker-dot"></span>Projekt Praktyczny — Promocja Zdrowia</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>BMC — 9 Elementów</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Model SROI</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Bartłomiej Grzywacz</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Dominik Niciejewski</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Amelia Koncewicz</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Oliwia Kluj</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Paweł Wołowicz</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Efektywność Ekonomiczna Podatku Cukrowego</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Projekt Praktyczny — Promocja Zdrowia</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>BMC — 9 Elementów</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Model SROI</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Bartłomiej Grzywacz</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Dominik Niciejewski</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Amelia Koncewicz</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Oliwia Kluj</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Paweł Wołowicz</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Efektywność Ekonomiczna Podatku Cukrowego</span>
+    </div>
+  </div>
+</div>
+
+<!-- ZESPÓŁ -->
+<div class="section" id="zespol">
+  <div class="wrap">
+    <div class="s-eye"><span class="s-eye-num">01</span><span class="s-eye-line"></span>Autorzy projektu</div>
+    <h2 class="s-h2">Zespół <em>ekspercki</em> AWFEcon</h2>
+    <p class="s-desc">Interdyscyplinarny zespół badawczy łączący kompetencje z zakresu ekonomiki zdrowia, polityki zdrowotnej, epidemiologii, promocji zdrowia oraz systemów ochrony zdrowia. Każdy członek zespołu wniósł unikalną perspektywę do analizy podatku cukrowego jako narzędzia systemowej interwencji profilaktycznej.</p>
+
+    <div class="team-stats-row">
+      <div class="team-stat-cell"><div class="team-stat-num">5</div><div class="team-stat-lbl">Członków zespołu<br>badawczego</div></div>
+      <div class="team-stat-cell"><div class="team-stat-num">5</div><div class="team-stat-lbl">Obszarów<br>eksperckich</div></div>
+      <div class="team-stat-cell"><div class="team-stat-num">8</div><div class="team-stat-lbl">Miesięcy pracy<br>badawczej</div></div>
+      <div class="team-stat-cell"><div class="team-stat-num">12</div><div class="team-stat-lbl">Recenzowanych<br>źródeł naukowych</div></div>
+    </div>
+
+    <div class="team-layout">
+      <div>
+        <div class="team-intro-card">
+          <div class="ti-label">O projekcie</div>
+          <h3>Interdyscyplinarny projekt z ekonomiki zdrowia</h3>
+          <p>Projekt łączy perspektywy ekonomii, polityki zdrowotnej, epidemiologii i promocji zdrowia — analizując podatek cukrowy jako narzędzie systemowej interwencji profilaktycznej. Zespół pracował pod kierunkiem naukowym Katedry Ekonomiki Zdrowia, wykorzystując metodologię Social Value UK.</p>
+          <p style="margin-top:12px;">Projekt zrealizowano w ramach programu praktycznego Promocja Zdrowia — edycja 2025.</p>
+        </div>
+      </div>
+
+      <div class="team-right">
+        <div class="team-card">
+          <img class="avatar-photo" src="1.png" alt="Bartłomiej Grzywacz" onerror="this.outerHTML='<div class=\'avatar-sq\' style=\'background:#1356F5\'>BG</div>'">
+          <div><div class="t-name">Bartłomiej Grzywacz</div><div class="t-role">Lider projektu — analiza SROI i modele ekonomiczne, wycena wartości społecznej interwencji, koordynacja metodologii badawczej</div><div class="t-dept">Ekonomika zdrowia</div></div>
+          <div class="team-arrow">→</div>
+        </div>
+        <div class="team-card">
+          <img class="avatar-photo" src="2.png" alt="Dominik Niciejewski" onerror="this.outerHTML='<div class=\'avatar-sq\' style=\'background:#1A6B4A\'>DN</div>'">
+          <div><div class="t-name">Dominik Niciejewski</div><div class="t-role">Polityka zdrowotna i legislacja — analiza regulacji prawnych, skutków fiskalnych i zgodności z dyrektywami UE</div><div class="t-dept">Polityka zdrowotna</div></div>
+          <div class="team-arrow">→</div>
+        </div>
+        <div class="team-card">
+          <img class="avatar-photo" src="3.png" alt="Amelia Koncewicz" onerror="this.outerHTML='<div class=\'avatar-sq\' style=\'background:#6D28D9\'>AK</div>'">
+          <div><div class="t-name">Amelia Koncewicz</div><div class="t-role">Promocja zdrowia i edukacja — analiza kampanii społecznych, programów profilaktycznych i strategii komunikacyjnych MZ</div><div class="t-dept">Promocja zdrowia</div></div>
+          <div class="team-arrow">→</div>
+        </div>
+        <div class="team-card">
+          <img class="avatar-photo" src="4.png" alt="Oliwia Kluj" onerror="this.outerHTML='<div class=\'avatar-sq\' style=\'background:#B91C1C\'>OK</div>'">
+          <div><div class="t-name">Oliwia Kluj</div><div class="t-role">Epidemiologia i dane populacyjne — analiza wskaźników zdrowotnych GUS/NIZP-PZH, modelowanie trendów otyłości</div><div class="t-dept">Epidemiologia</div></div>
+          <div class="team-arrow">→</div>
+        </div>
+        <div class="team-card">
+          <img class="avatar-photo" src="5.png" alt="Paweł Wołowicz" onerror="this.outerHTML='<div class=\'avatar-sq\' style=\'background:#0369A1\'>PW</div>'">
+          <div><div class="t-name">Paweł Wołowicz</div><div class="t-role">Systemy ochrony zdrowia — analiza struktury NFZ, alokacji środków publicznych i efektywności programów profilaktycznych</div><div class="t-dept">Systemy zdrowotne</div></div>
+          <div class="team-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-competencies">
+      <div class="team-comp-card"><div class="team-comp-icon">📊</div><div class="team-comp-title">Modelowanie ekonomiczne</div><div class="team-comp-desc">Analiza kosztów i korzyści interwencji fiskalnych, kalkulacja wskaźnika SROI, prognozowanie wpływów budżetowych i oszczędności systemowych.</div><div class="team-comp-members">Bartłomiej Grzywacz</div></div>
+      <div class="team-comp-card"><div class="team-comp-icon">⚖️</div><div class="team-comp-title">Analiza prawno-regulacyjna</div><div class="team-comp-desc">Badanie zgodności podatku cukrowego z prawem UE, analiza porównawcza stawek w krajach OECD, rekomendacje legislacyjne.</div><div class="team-comp-members">Dominik Niciejewski</div></div>
+      <div class="team-comp-card"><div class="team-comp-icon">🏥</div><div class="team-comp-title">Profilaktyka i edukacja zdrowotna</div><div class="team-comp-desc">Ewaluacja kampanii społecznych MZ i NIZP-PZH, analiza skuteczności programów szkolnych i środowiskowych, rekomendacje dla POZ.</div><div class="team-comp-members">Amelia Koncewicz</div></div>
+      <div class="team-comp-card"><div class="team-comp-icon">🔬</div><div class="team-comp-title">Epidemiologia populacyjna</div><div class="team-comp-desc">Analiza danych GUS, NIZP-PZH i OECD Health Statistics, modelowanie trendów otyłości i cukrzycy t.2 w horyzoncie 5- i 10-letnim.</div><div class="team-comp-members">Oliwia Kluj</div></div>
+      <div class="team-comp-card"><div class="team-comp-icon">🏛️</div><div class="team-comp-title">Systemy ochrony zdrowia</div><div class="team-comp-desc">Analiza struktury NFZ, mechanizmów kontraktowania świadczeń profilaktycznych, ocena efektywności alokacji środków publicznych.</div><div class="team-comp-members">Paweł Wołowicz</div></div>
+      <div class="team-comp-card"><div class="team-comp-icon">🤝</div><div class="team-comp-title">Współpraca interdyscyplinarna</div><div class="team-comp-desc">Integracja pięciu obszarów eksperckich w spójny model BMC-9, wspólna walidacja wyników, wzajemna recenzja wewnętrzna.</div><div class="team-comp-members">Cały zespół AWFEcon</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FINANSOWANIE -->
+<div class="section section-alt" id="finansowanie">
+  <div class="wrap">
+    <div class="s-eye"><span class="s-eye-num">02</span><span class="s-eye-line"></span>Finansowanie projektu</div>
+    <h2 class="s-h2">Struktura <em>finansowania</em> i partnerzy</h2>
+    <p class="s-desc" style="margin-bottom:0;">Projekt uzyskał wsparcie finansowe od podmiotów deklarujących zainteresowanie poprawą zdrowia publicznego w Polsce. Wsparcie nie wpłynęło na wyniki badań — wszystkie analizy przeprowadzono niezależnie, zgodnie z metodologią Social Value UK.</p>
+
+    <div class="finance-hero">
+      <div class="finance-card"><div class="finance-card-icon">🏛️</div><h4>Grant badawczy NCBR</h4><p>Narodowe Centrum Badań i Rozwoju przyznało dofinansowanie w ramach konkursu „Zdrowie Publiczne 2024" na realizację interdyscyplinarnych badań z zakresu ekonomiki zdrowia.</p><div class="finance-amount">480 000 zł</div><div class="finance-amount-label">· 46% budżetu całkowitego</div><div class="finance-bar-wrap"><div class="finance-bar" data-w="46"></div></div></div>
+      <div class="finance-card"><div class="finance-card-icon">🏢</div><h4>Sponsoring branżowy</h4><p>Czterech sponsorów z sektora gastronomicznego i napojowego przekazało środki w formule grantu bezwarunkowego (unrestricted educational grant).</p><div class="finance-amount">420 000 zł</div><div class="finance-amount-label">· 40% budżetu całkowitego</div><div class="finance-bar-wrap"><div class="finance-bar gold" data-w="40"></div></div></div>
+      <div class="finance-card"><div class="finance-card-icon">🎓</div><h4>Środki własne Uczelni</h4><p>Gdański Uniwersytet Medyczny zapewnił infrastrukturę badawczą, dostęp do baz danych oraz wynagrodzenia dla zespołu studenckiego w ramach projektu praktycznego.</p><div class="finance-amount">95 000 zł</div><div class="finance-amount-label">· 9% budżetu całkowitego</div><div class="finance-bar-wrap"><div class="finance-bar green" data-w="9"></div></div></div>
+      <div class="finance-card"><div class="finance-card-icon">🌐</div><h4>Wsparcie międzynarodowe</h4><p>WHO Regional Office for Europe przekazało wsparcie merytoryczne i dostęp do europejskich baz danych Health Statistics oraz narzędzi ewaluacyjnych.</p><div class="finance-amount">55 000 zł</div><div class="finance-amount-label">· 5% budżetu całkowitego</div><div class="finance-bar-wrap"><div class="finance-bar" data-w="5" style="background:var(--ink-soft);"></div></div></div>
+    </div>
+
+    <h3 style="font-family:var(--ff-dis);font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:8px;">Harmonogram finansowania</h3>
+    <p style="font-size:.78rem;color:var(--ink-soft);margin-bottom:20px;">Cztery transze środków powiązane z etapami realizacji projektu.</p>
+    <div class="finance-milestones">
+      <div class="finance-milestone"><div class="finance-milestone-year">I kwartał</div><div class="finance-milestone-desc">Uruchomienie grantu NCBR — przegląd literatury, protokół badawczy, rekrutacja zespołu</div><span class="finance-milestone-tag tag-blue">310 000 zł</span></div>
+      <div class="finance-milestone"><div class="finance-milestone-year">II kwartał</div><div class="finance-milestone-desc">Sponsoring branżowy — zbieranie danych pierwotnych, wywiady z interesariuszami</div><span class="finance-milestone-tag tag-gold">280 000 zł</span></div>
+      <div class="finance-milestone"><div class="finance-milestone-year">III kwartał</div><div class="finance-milestone-desc">Druga transza grantu — modelowanie ekonomiczne, kalkulacja SROI, analiza BMC</div><span class="finance-milestone-tag tag-blue">290 000 zł</span></div>
+      <div class="finance-milestone"><div class="finance-milestone-year">IV kwartał</div><div class="finance-milestone-desc">Finalizacja — publikacja raportu, konferencja naukowa, rekomendacje dla MZ</div><span class="finance-milestone-tag tag-green">170 000 zł</span></div>
+    </div>
+
+    <div class="finance-allocation">
+      <div>
+        <h3 style="font-family:var(--ff-dis);font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:8px;">Alokacja budżetu 1 050 000 zł</h3>
+        <p style="font-size:.78rem;color:var(--ink-soft);margin-bottom:20px;">Podział całości środków według kategorii kosztów projektu badawczego.</p>
+        <table class="finance-table">
+          <thead><tr><th>Kategoria wydatku</th><th>Kwota</th><th>Udział</th><th>Źródło</th></tr></thead>
+          <tbody>
+            <tr><td>Wynagrodzenia zespołu badawczego (5 osób × 8 mies.)</td><td class="fv">320 000 zł</td><td>30,5%</td><td>NCBR + GUMed</td></tr>
+            <tr><td>Zakup baz danych i licencji analitycznych</td><td class="fv">185 000 zł</td><td>17,6%</td><td>NCBR</td></tr>
+            <tr><td>Badania terenowe — wywiady, ankiety, fokusy</td><td class="fv">140 000 zł</td><td>13,3%</td><td>Sponsoring</td></tr>
+            <tr><td>Konferencje naukowe — udział czynny (3 konferencje)</td><td class="fv">95 000 zł</td><td>9,0%</td><td>Sponsoring + WHO</td></tr>
+            <tr><td>Publikacja raportu — skład, druk, multimedia</td><td class="fv">88 000 zł</td><td>8,4%</td><td>Sponsoring</td></tr>
+            <tr><td>Infrastruktura IT i oprogramowanie</td><td class="fv">72 000 zł</td><td>6,9%</td><td>GUMed</td></tr>
+            <tr><td>Koszty administracyjne i pośrednie</td><td class="fv">65 000 zł</td><td>6,2%</td><td>NCBR</td></tr>
+            <tr><td>Ewaluacja zewnętrzna i audyt metodologiczny</td><td class="fv">55 000 zł</td><td>5,2%</td><td>WHO</td></tr>
+            <tr><td>Rezerwa budżetowa (5%)</td><td class="fv">30 000 zł</td><td>2,9%</td><td>Wszystkie źródła</td></tr>
+          </tbody>
+          <tfoot><tr><td><strong>SUMA</strong></td><td class="fv"><strong>1 050 000 zł</strong></td><td><strong>100%</strong></td><td></td></tr></tfoot>
+        </table>
+      </div>
+      <div>
+        <div style="background:var(--white);border:1px solid var(--line);border-radius:6px;padding:28px 24px;">
+          <p style="font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px;">Struktura finansowania</p>
+          <div class="finance-pie-legend">
+            <div class="finance-pie-item"><div class="finance-pie-dot" style="background:var(--blue);"></div><div class="finance-pie-label">Grant NCBR</div><div class="finance-pie-val">46%</div></div>
+            <div class="finance-pie-item"><div class="finance-pie-dot" style="background:var(--gold);"></div><div class="finance-pie-label">Sponsoring branżowy</div><div class="finance-pie-val">40%</div></div>
+            <div class="finance-pie-item"><div class="finance-pie-dot" style="background:var(--green);"></div><div class="finance-pie-label">Środki własne GUMed</div><div class="finance-pie-val">9%</div></div>
+            <div class="finance-pie-item"><div class="finance-pie-dot" style="background:var(--ink-soft);"></div><div class="finance-pie-label">Wsparcie WHO</div><div class="finance-pie-val">5%</div></div>
+          </div>
+          <p style="font-size:.7rem;color:var(--ink-soft);margin-top:20px;line-height:1.6;border-top:1px solid var(--line);padding-top:16px;"><strong>Całkowity budżet:</strong> 1 050 000 zł<br><strong>Okres realizacji:</strong> styczeń – grudzień 2025<br><strong>Jednostka realizująca:</strong> Katedra Ekonomiki Zdrowia, Gdański Uniwersytet Medyczny</p>
+        </div>
+        <div class="sponsor-notice" style="margin-top:24px;"><strong>⚠️ Nota o konflikcie interesów</strong> Sponsorzy prowadzą działalność w branżach objętych analizą podatku cukrowego — zjawisko dokumentowane w literaturze naukowej (Moodie et al., <em>The Lancet</em>, 2013). Wszystkie umowy sponsorskie zawarto w formule <em>unrestricted educational grant</em>, bez wpływu na metodologię, wyniki ani rekomendacje. Bodrum Kebab Radomsko wyraził szczególne zaangażowanie w lokalną profilaktykę cukrzycy na terenie powiatu radomszczańskiego.</div>
+      </div>
+    </div>
+
+    <div class="sponsor-top" style="margin-top:48px;border-top:1px solid var(--line);padding-top:40px;">
+      <div><h3 style="font-family:var(--ff-dis);font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:12px;">Partnerzy <em style="color:var(--blue);">strategiczni</em> i sponsorzy</h3><p class="s-desc">Cztery podmioty przekazały środki w ramach grantu bezwarunkowego — bez prawa wglądu w wyniki przed publikacją i bez możliwości ingerencji w treść raportu.</p></div>
+    </div>
+    <div class="sponsors-grid">
+      <div class="sp"><div class="sp-emoji">🍔</div><div><div class="sp-name">McDonald's Polska</div><div class="sp-tier">Partner Strategiczny · Grant 180 000 zł</div><span class="sp-badge badge-gold">Złoty Sponsor</span></div></div>
+      <div class="sp"><div class="sp-emoji">🍺</div><div><div class="sp-name">Heineken Polska</div><div class="sp-tier">Partner Strategiczny · Grant 120 000 zł</div><span class="sp-badge badge-gold">Złoty Sponsor</span></div></div>
+      <div class="sp"><div class="sp-emoji">🍗</div><div><div class="sp-name">KFC Poland</div><div class="sp-tier">Partner Wspierający · Grant 80 000 zł</div><span class="sp-badge badge-silver">Srebrny Sponsor</span></div></div>
+      <div class="sp"><div class="sp-emoji">🥙</div><div><div class="sp-name">Bodrum Kebab Radomsko</div><div class="sp-tier">Partner Lokalny · Grant 40 000 zł</div><span class="sp-badge badge-local">Lokalny Patron</span></div></div>
+    </div>
+
+    <div class="finance-transparency">
+      <div><h4>Pełna transparentność finansowa</h4><p>Protokół badawczy, umowy sponsorskie i szczegółowy budżet projektu są dostępne do wglądu w repozytorium Open Science Framework. Projekt zarejestrowany pod numerem OSF-2025-AWFECON-PL.</p></div>
+      <div><button class="finance-download" onclick="window.open('https://github.com/grzywkaplrks/promocjazdrowiaprojektawf','_blank')">📄 Pobierz dokumentację</button></div>
+    </div>
+    <div class="sponsor-fine">* Ironia wyboru sponsorów z branży gastronomicznej w projekcie poświęconym ekonomice otyłości jest w pełni zamierzona i stanowi element analizy konfliktów interesów w badaniach zdrowia publicznego.</div>
+  </div>
+</div>
+
+<!-- BMC -->
+<div class="section section-alt" id="bmc">
+  <div class="wrap">
+    <div class="s-eye"><span class="s-eye-num">03</span><span class="s-eye-line"></span>Model biznesowy</div>
+    <h2 class="s-h2">Business Model Canvas <em>— 9 elementów</em></h2>
+    <p class="s-desc" style="margin-bottom:44px;">Podatek cukrowy jako systemowa interwencja zdrowotno-fiskalna — kompleksowa analiza przez pryzmat wszystkich dziewięciu składowych modelu BMC, ukazująca wielowymiarowość i złożoność tego instrumentu polityki zdrowotnej.</p>
+
+    <div class="bmc-toc">
+      <div class="bmc-toc-item" onclick="scroll2('b1')"><div class="btoc-num">1</div><div class="btoc-label">Segmenty klienta</div></div>
+      <div class="bmc-toc-item" onclick="scroll2('b2')"><div class="btoc-num">2</div><div class="btoc-label">Wartości</div></div>
+      <div class="bmc-toc-item" onclick="scroll2('b3')"><div class="btoc-num">3</div><div class="btoc-label">Kanały dystrybucji</div></div>
+      <div class="bmc-toc-item" onclick="scroll2('b4')"><div class="btoc-num">4</div><div class="btoc-label">Relacje z klientem</div></div>
+      <div class="bmc-toc-item" onclick="scroll2('b5')"><div class="btoc-num">5</div><div class="btoc-label">Strumień przychodów</div></div>
+      <div class="bmc-toc-item" onclick="scroll2('b6')"><div class="btoc-num">6</div><div class="btoc-label">Kluczowe zasoby</div></div>
+      <div class="bmc-toc-item" onclick="scroll2('b7')"><div class="btoc-num">7</div><div class="btoc-label">Kluczowe działania</div></div>
+      <div class="bmc-toc-item" onclick="scroll2('b8')"><div class="btoc-num">8</div><div class="btoc-label">Kluczowi partnerzy</div></div>
+      <div class="bmc-toc-item" onclick="scroll2('b9')"><div class="btoc-num">9</div><div class="btoc-label">Koszty / SROI</div></div>
+    </div>
+
+    <!-- 1. Segmenty klienta -->
+    <div class="bmc-blk" id="b1">
+      <div class="bmc-blk-left"><div class="bmc-blk-num">01</div><div><div class="bmc-blk-title">Segmenty klienta</div><div class="bmc-blk-sub">Odbiorcy interwencji</div></div></div>
+      <div class="bmc-blk-right">
+        <p>Podatek cukrowy jest interwencją fiskalną adresowaną do zróżnicowanych grup społecznych — zarówno po stronie podaży (producenci, importerzy), jak i popytu (konsumenci finalni) oraz systemu zdrowia jako beneficjenta pośredniego. Zrozumienie segmentacji odbiorców jest kluczowe dla oceny skuteczności i sprawiedliwości tego instrumentu.</p>
+        <div class="bmc-two">
+          <div>
+            <div class="bmc-section-title">Konsumenci bezpośredni</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Grupa docelowa</th><th>Charakterystyka i wpływ</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>Dzieci i młodzież 6–18 lat</strong></td><td>Najwyższa wrażliwość cenowa; ryzyko wczesnej otyłości; cel profilaktyki szkolnej; ok. 5,8 mln osób w populacji</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Dorośli 18–45 lat</strong></td><td>Główny segment konsumentów napojów słodzonych; podatny na sygnały cenowe; elastyczność popytu szacowana na −1,1</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Osoby 45+ z chorobami metabolicznymi</strong></td><td>Segment kosztochłonny dla NFZ; cel profilaktyki wtórnej; 8,2 mln osób z nadwagą w tej grupie</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Grupy socjoekonomicznie wrażliwe</strong></td><td>Wyższa konsumpcja tanich napojów słodzonych; ryzyko regresywności podatku; wyzwanie dla polityki społecznej</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Kobiety w wieku rozrodczym</strong></td><td>Cel edukacji żywieniowej w kontekście programowania metabolicznego płodu i profilaktyki GDM</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="bmc-section-title">Podmioty systemu zdrowia</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Podmiot</th><th>Rola i korzyści</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>NFZ</strong></td><td>Główny beneficjent finansowy; redukcja kosztów leczenia cukrzycy t.2, ChSN i NAFLD; roczne oszczędności ~1,4 mld zł</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>POZ i AOS</strong></td><td>Realizatorzy programów profilaktycznych finansowanych z wpływów; 35 500 lekarzy POZ jako kluczowi dostawcy usług</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Producenci napojów</strong></td><td>Płatnicy daniny; 3 200+ podmiotów; stymulowani do reformulacji receptur (&lt;5g/100ml) przez system ulg</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Samorządy terytorialne</strong></td><td>Beneficjenci lokalnych programów profilaktycznych; 2 477 gmin realizujących programy zdrowotne</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="alert-strip alert-blue"><div class="alert-icon">💡</div><div>Podatek Pigouviana internalizuje koszt zewnętrzny: producent i konsument ponoszą część społecznych kosztów zdrowotnych, które dotychczas przerzucane były wyłącznie na NFZ i podatnika ogólnego. Estymowany całkowity koszt zewnętrzny konsumpcji cukru w Polsce wynosi ~8,5 mld zł rocznie.</div></div>
+      </div>
+    </div>
+
+    <!-- 2. Wartości -->
+    <div class="bmc-blk" id="b2">
+      <div class="bmc-blk-left"><div class="bmc-blk-num">02</div><div><div class="bmc-blk-title">Wartości</div><div class="bmc-blk-sub">Propozycja wartości</div></div></div>
+      <div class="bmc-blk-right">
+        <p>Podatek tworzy wartość na dwóch poziomach: <strong>fiskalnym</strong> — generując przychody budżetowe alokowane w profilaktykę, oraz <strong>zdrowotnym</strong> — zmieniając zachowania konsumenckie poprzez sygnał cenowy i finansując programy zdrowotne. Podwójna dywidenda: korzyści budżetowe i zdrowotne są od siebie niezależne i wzajemnie się wzmacniają.</p>
+        <div class="bmc-three">
+          <div>
+            <div class="bmc-section-title">Dla konsumentów</div>
+            <ul class="bl">
+              <li>Sygnał cenowy skłaniający do zdrowszych wyborów żywieniowych — redukcja spożycia o 15%</li>
+              <li>Dostęp do bezpłatnych programów profilaktycznych NFZ finansowanych z daniny</li>
+              <li>Poprawa długoterminowej jakości życia mierzonej wskaźnikiem QALY — średnio +0,8 QALY na osobę</li>
+              <li>Większa dostępność produktów reformulowanych o obniżonej zawartości cukru</li>
+            </ul>
+          </div>
+          <div>
+            <div class="bmc-section-title">Dla systemu zdrowia</div>
+            <ul class="bl">
+              <li>Redukcja kosztów leczenia cukrzycy t.2 i chorób sercowo-naczyniowych — łącznie ~3,9 mld zł oszczędności rocznie</li>
+              <li>Dedykowane środki na kampanie edukacyjne MZ i NIZP-PZH — budżet ~60 mln zł rocznie</li>
+              <li>Zmniejszenie presji na infrastrukturę POZ i szpitale — mniej hospitalizacji z powodu powikłań otyłości</li>
+              <li>Wzmocnienie systemu monitorowania epidemiologicznego przez rejestry chorób metabolicznych</li>
+            </ul>
+          </div>
+          <div>
+            <div class="bmc-section-title">Dla społeczeństwa</div>
+            <ul class="bl">
+              <li>Niższa absencja chorobowa i wzrost produktywności — szacowane 1,4 mld zł oszczędności dla pracodawców</li>
+              <li>Reformulacja produktów — zdrowsza oferta rynkowa; +35% produktów z obniżoną zawartością cukru</li>
+              <li>Ograniczenie kosztów opieki nieformalnej sprawowanej przez członków rodzin</li>
+              <li>Efekt edukacyjny — wzrost świadomości społecznej dotyczącej szkodliwości nadmiaru cukru</li>
+            </ul>
+          </div>
+        </div>
+        <div class="kpi-strip k4">
+          <div class="kpi-cell"><div class="kv">−22%</div><div class="kl">Spożycie u dzieci 13–17 lat</div></div>
+          <div class="kpi-cell"><div class="kv">+35%</div><div class="kl">Produkty reformulowane (low-sugar)</div></div>
+          <div class="kpi-cell"><div class="kv green">9,2×</div><div class="kl">Zwrot społeczny SROI</div></div>
+          <div class="kpi-cell"><div class="kv">1,4 mld</div><div class="kl">Oszczędności NFZ/rok</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Kanały dystrybucji -->
+    <div class="bmc-blk" id="b3">
+      <div class="bmc-blk-left"><div class="bmc-blk-num">03</div><div><div class="bmc-blk-title">Kanały dystrybucji</div><div class="bmc-blk-sub">Dotarcie do odbiorców</div></div></div>
+      <div class="bmc-blk-right">
+        <p>Podatek dociera do odbiorców przez wielokanałowy system: <strong>regulacyjny</strong> (przymus podatkowy nakładany na producentów i importerów), <strong>profilaktyczny</strong> (programy NFZ realizowane w POZ i AOS) i <strong>edukacyjny</strong> (kampanie społeczne, system oświaty i platformy e-zdrowia). Zintegrowane podejście omnichannelowe zapewnia synergię między poszczególnymi kanałami oddziaływania.</p>
+        <div class="bmc-two">
+          <div>
+            <div class="bmc-section-title">Kanały fiskalne — pobór daniny</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Kanał</th><th>Opis działania</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>Urzędy Skarbowe</strong></td><td>Miesięczne deklaracje i pobór od 3 200+ producentów i importerów; termin do 25. dnia miesiąca</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Ministerstwo Finansów</strong></td><td>Regulacja stawek, monitoring wpływów, transfer ~25% środków do NFZ na programy profilaktyczne</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>KAS</strong></td><td>Kontrola i egzekucja; weryfikacja składu produktów przez laboratoria celno-skarbowe; sankcje za nieprawidłowości</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>System e-Deklaracje</strong></td><td>Platforma cyfrowa do składania deklaracji podatkowych w formie elektronicznej</td></tr>
+              </tbody>
+            </table>
+            <div class="bmc-section-title" style="margin-top:20px;">Kanały profilaktyczne</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Kanał</th><th>Opis działania</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>NFZ → POZ → pacjent</strong></td><td>Programy profilaktyki chorób metabolicznych; „Profilaktyka 40 PLUS"</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Samorządy</strong></td><td>Lokalne programy zdrowotne i żywienie szkolne; 2 477 gmin</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Apteki</strong></td><td>Punkt kontaktu z poradnictwem dietetycznym; potencjał 13 500 placówek</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="bmc-section-title">Kanały edukacyjne i informacyjne</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Kanał</th><th>Opis działania</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>MZ / NIZP-PZH</strong></td><td>Kampania „Cukier — poznaj prawdę" w mediach tradycyjnych i cyfrowych; zasięg ~18 mln odbiorców</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>System oświaty</strong></td><td>Edukacja żywieniowa w 14 000+ szkół podstawowych i ponadpodstawowych</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>IKP (e-zdrowie)</strong></td><td>16,5 mln aktywnych kont; platforma edukacyjna z modułem dietetycznym</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Social media MZ</strong></td><td>Treści profilaktyczne, kalkulatory cukru, webinary edukacyjne</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Nutri-Score</strong></td><td>Oznakowanie frontowe jako kanał informacyjny bezpośrednio w miejscu zakupu</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Aplikacje mobilne</strong></td><td>Kalkulatory cukru, dzienniki żywieniowe, programy coachingu zdrowotnego</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Relacje z klientem -->
+    <div class="bmc-blk" id="b4">
+      <div class="bmc-blk-left"><div class="bmc-blk-num">04</div><div><div class="bmc-blk-title">Relacje z klientem</div><div class="bmc-blk-sub">Charakter interakcji</div></div></div>
+      <div class="bmc-blk-right">
+        <p>Relacje mają zróżnicowany charakter — od <strong>przymusowej relacji regulacyjnej</strong> z producentami, przez <strong>usługową profilaktyczną</strong> z pacjentami, po <strong>partnerską edukacyjną</strong> z obywatelami. Kluczowym wyzwaniem jest zrównoważenie charakteru obligatoryjnego z budowaniem pozytywnego zaangażowania interesariuszy w poprawę zdrowia publicznego.</p>
+        <div class="bmc-two">
+          <div>
+            <div class="bmc-section-title">Z producentami / przemysłem spożywczym</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Typ relacji</th><th>Charakterystyka</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>Regulacyjna</strong></td><td>Obowiązek podatkowy niezależny od woli podmiotu; brak opt-out; sankcje za nieprzestrzeganie</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Motywacyjna</strong></td><td>System ulg podatkowych za reformulację receptur poniżej progów cukrowych (5g/100ml)</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Konsultacyjna</strong></td><td>Dialog techniczny MF z branżą napojową w sprawie przepisów wykonawczych i harmonogramu zmian</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Innowacyjna</strong></td><td>Wspieranie badań nad alternatywnymi substancjami słodzącymi i technologiami reformulacji</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="bmc-section-title">Z pacjentem / obywatelem</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Typ relacji</th><th>Charakterystyka</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>Profilaktyczna</strong></td><td>Badania bilansowe, program „Krok do zdrowia", diety redukcyjne refundowane przez NFZ</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Edukacyjna</strong></td><td>Kampanie społeczne, poradnictwo dietetyczne w POZ, materiały edukacyjne w szkołach</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Cenowa</strong></td><td>Wzrost ceny napojów słodzonych o ~10–18% po opodatkowaniu jako automatyczny bodziec behawioralny</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Cyfrowa</strong></td><td>IKP, e-zdrowie, aplikacje mobilne kalkulatora cukru, teleporady dietetyczne</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="alert-strip alert-gold"><div class="alert-icon">⚠️</div><div><strong>Ryzyko regresywności:</strong> Podatek pośredni obciąża relatywnie mocniej osoby o niskich dochodach — wydatki na napoje słodzone stanowią 2,1% budżetu najuboższych gospodarstw vs. 0,7% najzamożniejszych. Konieczne są mechanizmy kompensacyjne: rozszerzenie refundacji porad dietetycznych przez NFZ, bony na zdrową żywność dla grup wrażliwych, oraz programy wsparcia żywieniowego w szkołach.</div></div>
+      </div>
+    </div>
+
+    <!-- 5. Strumień przychodów -->
+    <div class="bmc-blk" id="b5">
+      <div class="bmc-blk-left"><div class="bmc-blk-num">05</div><div><div class="bmc-blk-title">Strumień przychodów</div><div class="bmc-blk-sub">Finansowanie interwencji</div></div></div>
+      <div class="bmc-blk-right">
+        <p>Opłata generuje wpływy na dwóch poziomach: <strong>bezpośrednim</strong> (wpływ do budżetu państwa i transfer do NFZ) oraz <strong>pośrednim</strong> — przez oszczędności systemu zdrowia wynikające z redukcji zachorowań na choroby metaboliczne. Ten drugi strumień, choć nieksięgowany jako przychód podatkowy, stanowi realną korzyść fiskalną dla finansów publicznych.</p>
+        <div class="bmc-two">
+          <div>
+            <div class="bmc-section-title">Struktura opłaty cukrowej (ustawa 2021)</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Składnik opłaty</th><th>Stawka</th></tr></thead>
+              <tbody>
+                <tr><td>Opłata stała — każdy litr napoju słodzonego</td><td class="tv">0,50 zł/l</td></tr>
+                <tr><td>Opłata zmienna — cukier &gt;5g/100ml</td><td class="tv">+0,05 zł/g</td></tr>
+                <tr><td>Substancje słodzące (aspartam, stewia)</td><td class="tv">+0,10 zł/l</td></tr>
+                <tr><td>Kofeina / tauryna (napoje energetyczne)</td><td class="tv">+0,10 zł/l</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="bmc-section-title">Szacowane wpływy roczne (mln zł)</div>
+            <div class="bch" id="ch-rev">
+              <div class="bcr"><div class="bcl">2021 — I rok wdrożenia</div><div class="bct"><div class="bcf" data-w="36"></div></div><div class="bcv">1 310</div></div>
+              <div class="bcr"><div class="bcl">2022</div><div class="bct"><div class="bcf" data-w="57"></div></div><div class="bcv">2 080</div></div>
+              <div class="bcr"><div class="bcl">2023</div><div class="bct"><div class="bcf" data-w="78"></div></div><div class="bcv">2 840</div></div>
+              <div class="bcr"><div class="bcl">2024</div><div class="bct"><div class="bcf" data-w="88"></div></div><div class="bcv">3 200</div></div>
+              <div class="bcr"><div class="bcl">2025 (prognoza)</div><div class="bct"><div class="bcf" data-w="100"></div></div><div class="bcv">3 640</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="alert-strip alert-blue"><div class="alert-icon">📊</div><div>Szacowane łączne oszczędności NFZ z redukcji zachorowań na cukrzycę t.2 i ChSN stanowią dodatkowy <strong>~1,4 mld zł rocznie</strong> — strumień nieujęty w oficjalnych wpływach podatkowych, ale realnie odciążający system finansów publicznych. Łączna korzyść fiskalna przekracza zatem 5 mld zł rocznie.</div></div>
+      </div>
+    </div>
+
+    <!-- 6. Kluczowe zasoby -->
+    <div class="bmc-blk" id="b6">
+      <div class="bmc-blk-left"><div class="bmc-blk-num">06</div><div><div class="bmc-blk-title">Kluczowe zasoby</div><div class="bmc-blk-sub">Co jest niezbędne</div></div></div>
+      <div class="bmc-blk-right">
+        <p>Skuteczność interwencji zależy od zasobów instytucjonalnych, ludzkich, finansowych i informacyjnych na wszystkich poziomach systemu ochrony zdrowia i administracji podatkowej. Zidentyfikowano kilka krytycznych deficytów, które ograniczają pełne wykorzystanie potencjału podatku cukrowego.</p>
+        <div class="bmc-two">
+          <div>
+            <div class="bmc-section-title">Zasoby instytucjonalne i prawne</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Zasób</th><th>Opis</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>Ustawa o zdrowiu publicznym</strong></td><td>Ramy prawne określające stawki i kategorie produktów objętych opłatą wraz z rozporządzeniami MF</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Infrastruktura KAS</strong></td><td>System deklarowania i poboru od 3 200+ podmiotów; 16 Izb Administracji Skarbowej</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>NFZ</strong></td><td>Zdolność kontraktowania programów profilaktycznych w 11 500 punktach POZ i 1 800 placówkach AOS</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>NIZP-PZH</strong></td><td>Zasoby badawcze; system monitoringu epidemiologicznego chorób metabolicznych</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>GIS</strong></td><td>Nadzór nad jakością żywności i oznakowaniem produktów</td></tr>
+              </tbody>
+            </table>
+            <div class="bmc-section-title" style="margin-top:20px;">Zasoby ludzkie</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Zasób</th><th>Opis</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>35 500 lekarzy POZ</strong></td><td>Realizatorzy profilaktyki metabolicznej i badań przesiewowych</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Dietetycy kliniczni</strong></td><td>Deficyt ~6 000 FTE (kluczowe ograniczenie systemowe)</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Pielęgniarki środowiskowe</strong></td><td>Edukacja zdrowotna w środowisku lokalnym; 22 000 aktywnych</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Edukatorzy szkolni</strong></td><td>Brak systemowego rozwiązania; realizowane ad hoc</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="bmc-section-title">Zasoby finansowe</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Zasób</th><th>Wartość / skala</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>Wpływy z podatku</strong></td><td>~3,2 mld zł rocznie — z tego ~800 mln na profilaktykę</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Fundusz Medyczny</strong></td><td>Dodatkowe źródło finansowania profilaktyki (subkonto 5,1 mld zł)</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Środki unijne KPO</strong></td><td>4,5 mld EUR na transformację systemu zdrowia, w tym e-zdrowie i profilaktykę</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Budżety samorządowe</strong></td><td>Lokalne programy zdrowotne; łącznie ~350 mln zł rocznie</td></tr>
+              </tbody>
+            </table>
+            <div class="bmc-section-title" style="margin-top:20px;">Zasoby informacyjne</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Zasób</th><th>Opis</th></tr></thead>
+              <tbody>
+                <tr><td style="white-space:nowrap;"><strong>Rejestry GUS, NIZP-PZH, NFZ</strong></td><td>Baza do ewaluacji skuteczności interwencji</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>IKP</strong></td><td>16,5 mln aktywnych kont; platforma do interwencji cyfrowych i monitorowania wyników</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>Baza IŻŻ</strong></td><td>Weryfikacja produktów objętych daniną; 12 000+ rekordów</td></tr>
+                <tr><td style="white-space:nowrap;"><strong>System Sentinela</strong></td><td>Monitoring sprzedaży napojów w czasie rzeczywistym przez integratorów kas fiskalnych</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="alert-strip alert-red"><div class="alert-icon">⚠️</div><div><strong>Krytyczny deficyt:</strong> Niedobór dietetyków klinicznych (~6 000 brakujących FTE) i brak systemowej refundacji porad dietetycznych przez NFZ stanowią główne ograniczenie efektywności profilaktyki pierwotnej finansowanej z podatku cukrowego. Rekomendowane jest utworzenie 2 000 nowych etatów dietetycznych w POZ w ciągu 3 lat oraz wprowadzenie pełnej refundacji 4 porad dietetycznych rocznie dla osób z BMI≥30.</div></div>
+      </div>
+    </div>
+
+    <!-- 7. Kluczowe działania -->
+    <div class="bmc-blk" id="b7">
+      <div class="bmc-blk-left"><div class="bmc-blk-num">07</div><div><div class="bmc-blk-title">Kluczowe działania</div><div class="bmc-blk-sub">Co musi być realizowane</div></div></div>
+      <div class="bmc-blk-right">
+        <p>Trzy wzajemnie wzmacniające się obszary działań tworzą spójny ekosystem interwencji: <strong>fiskalny</strong> (pobór i dystrybucja środków z podatku), <strong>profilaktyczny</strong> (realizacja programów zdrowotnych finansowanych z wpływów) oraz <strong>regulacyjno-badawczy</strong> (ewaluacja skuteczności i aktualizacja przepisów na podstawie dowodów naukowych).</p>
+        <div class="bmc-three">
+          <div>
+            <div class="bmc-section-title">🏛 Działania fiskalne</div>
+            <ul class="bl">
+              <li>Pobór i ewidencja opłaty przez producentów i importerów — miesięczny cykl deklaracji</li>
+              <li>Miesięczne deklaracje z podziałem na kategorie produktów według zawartości cukru i substancji dodatkowych</li>
+              <li>Transfer minimum 25% wpływów do NFZ na programy profilaktyczne — rekomendowane zwiększenie do 50%</li>
+              <li>Kontrola składu produktów przez laboratoria KAS — minimum 5 000 badań rocznie</li>
+              <li>Coroczna indeksacja stawek o wskaźnik CPI w celu utrzymania realnej wartości podatku</li>
+            </ul>
+          </div>
+          <div>
+            <div class="bmc-section-title">🏥 Działania profilaktyczne</div>
+            <ul class="bl">
+              <li>Program „Profilaktyka 40 PLUS" — badania metaboliczne i lipidogram; cel: 3 mln uczestników rocznie</li>
+              <li>Kontraktowanie porad dietetycznych w POZ przez NFZ — cel: 1 mln porad rocznie</li>
+              <li>Kampania „Cukier — poznaj prawdę" — NIZP-PZH i MZ; zasięg 18 mln odbiorców</li>
+              <li>Programy szkolne — monitoring BMI populacji dziecięcej i edukacja żywieniowa w 14 000 szkół</li>
+              <li>Interwencje środowiskowe — programy redukcji otyłości w miejscu pracy i społecznościach lokalnych</li>
+            </ul>
+          </div>
+          <div>
+            <div class="bmc-section-title">🔬 Działania regulacyjne</div>
+            <ul class="bl">
+              <li>Ewaluacja stawek — aktualizacja co 2 lata na podstawie danych o konsumpcji i efektach zdrowotnych</li>
+              <li>Analiza rozszerzenia zakresu o żywność przetworzoną — słodycze, wypieki, płatki śniadaniowe</li>
+              <li>Wdrożenie systemu Nutri-Score jako oznakowania obowiązkowego — harmonogram do 2027 roku</li>
+              <li>Benchmarking międzynarodowy z WHO, ECDC i OECD — dostosowanie do najlepszych praktyk</li>
+              <li>Badania naukowe z zakresu ekonomiki zdrowia — granty NCBR na ewaluację skuteczności</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Kluczowi partnerzy -->
+    <div class="bmc-blk" id="b8">
+      <div class="bmc-blk-left"><div class="bmc-blk-num">08</div><div><div class="bmc-blk-title">Kluczowi partnerzy</div><div class="bmc-blk-sub">Beneficjenci, interesariusze</div></div></div>
+      <div class="bmc-blk-right">
+        <p>Efektywność podatku zależy od koordynacji szerokiej sieci interesariuszy o zróżnicowanych i często <strong>sprzecznych interesach</strong> — od regulatorów publicznych przez przemysł spożywczy po organizacje pacjentów i instytucje międzynarodowe. Zarządzanie tą siecią wymaga transparentnego dialogu i mechanizmów równoważenia interesów.</p>
+        <div class="bmc-two">
+          <div>
+            <div class="bmc-section-title">Partnerzy publiczni</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Podmiot</th><th>Rola w interwencji</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Ministerstwo Zdrowia</strong></td><td>Polityka zdrowotna, legislacja, kampanie edukacyjne, nadzór nad NIZP-PZH</td></tr>
+                <tr><td><strong>Ministerstwo Finansów</strong></td><td>Regulacja podatkowa, stawki, transfer środków do NFZ, ewaluacja fiskalna</td></tr>
+                <tr><td><strong>NFZ</strong></td><td>Kontraktowanie profilaktyki, zarządzanie środkami z podatku, monitoring efektów</td></tr>
+                <tr><td><strong>NIZP-PZH</strong></td><td>Monitoring epidemiologiczny, badania skuteczności, kampanie informacyjne</td></tr>
+                <tr><td><strong>KAS / US</strong></td><td>Pobór daniny, kontrola deklaracji, egzekucja należności, badania laboratoryjne</td></tr>
+                <tr><td><strong>GUS</strong></td><td>Statystyki konsumpcji, dane demograficzne, badania budżetów gospodarstw domowych</td></tr>
+                <tr><td><strong>GIS</strong></td><td>Nadzór nad bezpieczeństwem żywności, kontrola oznakowania, inspekcje sanitarne</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="bmc-section-title">Interesariusze prywatni i społeczni</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Podmiot</th><th>Charakter interesu</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Producenci napojów</strong></td><td>Negatywny — koszty podatkowe; pozytywny — bodziec do reformulacji i innowacji</td></tr>
+                <tr><td><strong>Sieci handlowe</strong></td><td>Neutralny — przeniesienie ceny na konsumenta; wzrost sprzedaży produktów reformulowanych</td></tr>
+                <tr><td><strong>NGO zdrowotne</strong></td><td>Pozytywny — wsparcie edukacji i profilaktyki; rzecznictwo zdrowia publicznego</td></tr>
+                <tr><td><strong>Stow. pacjentów</strong></td><td>Pozytywny — redukcja zachorowań; lepsza jakość życia chorych metabolicznie</td></tr>
+                <tr><td><strong>Uczelnie medyczne</strong></td><td>Neutralny / pozytywny — badania naukowe; kształcenie kadr dietetycznych</td></tr>
+                <tr><td><strong>WHO / ECDC / OECD</strong></td><td>Doradczy — standardy, rekomendacje, dane porównawcze</td></tr>
+                <tr><td><strong>Media</strong></td><td>Neutralny — przekaz informacyjny; potencjalny sojusznik lub krytyk polityki</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Struktura kosztów — SROI -->
+    <div class="bmc-blk" id="b9">
+      <div class="bmc-blk-left"><div class="bmc-blk-num">09</div><div><div class="bmc-blk-title">Struktura kosztów — SROI</div><div class="bmc-blk-sub">Efektywność finansowa</div></div></div>
+      <div class="bmc-blk-right">
+        <p>Element dziewiąty łączy tradycyjną strukturę kosztów z modelem <strong>Social Return on Investment (SROI)</strong> — metodologią Social Value UK wyceniającą wartość społeczną programów profilaktycznych finansowanych z podatku cukrowego. Analiza w horyzoncie 5-letnim ze stopą dyskontową 3,5% potwierdza wysoką efektywność tej interwencji.</p>
+        <div class="bmc-two">
+          <div>
+            <div class="bmc-section-title">Koszty bezpośrednie interwencji (rocznie)</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Kategoria kosztu</th><th>Kwota</th></tr></thead>
+              <tbody>
+                <tr><td>Administracja podatkowa (KAS/US)</td><td class="tv">~120 mln zł</td></tr>
+                <tr><td>Programy profilaktyczne NFZ</td><td class="tv">~800 mln zł</td></tr>
+                <tr><td>Kampanie edukacyjne MZ/NIZP-PZH</td><td class="tv">~60 mln zł</td></tr>
+                <tr><td>System e-zdrowie i monitoring IKP</td><td class="tv">~40 mln zł</td></tr>
+                <tr><td>Badania i ewaluacja (granty NCBR)</td><td class="tv">~30 mln zł</td></tr>
+                <tr><td>Koszty inspekcji i nadzoru GIS</td><td class="tv">~25 mln zł</td></tr>
+              </tbody>
+              <tfoot><tr><td><strong>SUMA nakładów rocznie</strong></td><td><strong>~1 075 mln zł</strong></td></tr></tfoot>
+            </table>
+          </div>
+          <div>
+            <div class="bmc-section-title">Wartość społeczna — horyzont 5 lat (PV)</div>
+            <table class="pt hover-light">
+              <thead><tr><th>Interesariusz / wynik</th><th>PV (mln zł)</th></tr></thead>
+              <tbody>
+                <tr><td>NFZ — oszczędności leczenia cukrzycy t.2</td><td class="tv tg">2 100</td></tr>
+                <tr><td>NFZ — redukcja kosztów ChSN i udaru</td><td class="tv tg">1 800</td></tr>
+                <tr><td>Pacjenci — poprawa jakości życia (QALY)</td><td class="tv tg">3 200</td></tr>
+                <tr><td>Pracodawcy — redukcja absencji chorobowej</td><td class="tv tg">1 400</td></tr>
+                <tr><td>ZUS — mniejsze wypłaty rent i świadczeń</td><td class="tv tg">1 200</td></tr>
+                <tr><td>Środowisko — ograniczenie produkcji cukru</td><td class="tv tg">850</td></tr>
+              </tbody>
+              <tfoot><tr><td><strong>SUMA wartości społecznej (PV, 5 lat)</strong></td><td class="tg"><strong>10 550</strong></td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+        <div class="kpi-strip k3">
+          <div class="kpi-cell"><div class="kv green">9,2 : 1</div><div class="kl">Wskaźnik SROI (próg NICE ≥ 3:1)</div></div>
+          <div class="kpi-cell"><div class="kv">5 lat</div><div class="kl">Horyzont analizy, stopa dyskontowa 3,5%</div></div>
+          <div class="kpi-cell"><div class="kv green">~1,4 mld</div><div class="kl">Roczne oszczędności NFZ z redukcji powikłań</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALIZA SROI -->
+<div class="section section-ink" id="analiza">
+  <div class="wrap">
+    <div class="s-eye" style="color:var(--gold);"><span class="s-eye-num" style="color:rgba(246,243,238,.3);">04</span><span style="width:28px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>Analiza ilościowa</div>
+    <div class="sroi-hero">
+      <div>
+        <h2 class="s-h2 s-h2-cream" style="margin-bottom:18px;">Social Return <em style="color:var(--gold);">on Investment</em></h2>
+        <p class="s-desc s-desc-cream">Wskaźnik SROI wycenia wartość społeczną na każdą zainwestowaną złotówkę — horyzont 5 lat, stopa dyskontowa 3,5%, metodologia Social Value UK. Analiza obejmuje wszystkie zidentyfikowane grupy interesariuszy i rezultaty interwencji.</p>
+        <div class="sroi-big-num" style="margin-top:40px;"><span id="sn">0.0</span><sub>: 1 zł nakładu</sub></div>
+        <p class="sroi-big-desc">Wynik przekracza próg NICE (≥ 3:1) ponad trzykrotnie — co potwierdza, że podatek cukrowy należy do najefektywniejszych kosztowo instrumentów zdrowia publicznego w polskim systemie ochrony zdrowia. Inwestycja 1 zł w profilaktykę zwraca się 9,2-krotnie w postaci wymiernych korzyści społecznych i ekonomicznych.</p>
+      </div>
+      <div class="sroi-cards">
+        <div class="sroi-card"><div class="sc-label"><strong>NFZ — Oszczędności leczenia cukrzycy t.2</strong>Redukcja nowych przypadków o ~18% w horyzoncie 5 lat</div><div class="sc-val">2 100 mln</div></div>
+        <div class="sroi-card"><div class="sc-label"><strong>NFZ — Choroby sercowo-naczyniowe i udar</strong>Ograniczenie incydentów ChSN o ~12%</div><div class="sc-val">1 800 mln</div></div>
+        <div class="sroi-card"><div class="sc-label"><strong>Pacjenci — Jakość życia (QALY)</strong>Wycena metodą EQ-5D i WTP</div><div class="sc-val">3 200 mln</div></div>
+        <div class="sroi-card"><div class="sc-label"><strong>Pracodawcy — Redukcja absencji chorobowej</strong>Wyższa produktywność, niższe koszty zwolnień</div><div class="sc-val">1 400 mln</div></div>
+        <div class="sroi-card"><div class="sc-label"><strong>ZUS — Mniejsze wypłaty świadczeń</strong>Niższe renty z tytułu chorób metabolicznych</div><div class="sc-val">1 200 mln</div></div>
+        <div class="sroi-card" style="border-top:1px solid rgba(246,243,238,.08);"><div class="sc-label"><strong>SUMA — Wartość bieżąca PV (5 lat)</strong>Stopa dyskontowa 3,5%; wartości realne</div><div class="sc-val" style="color:var(--cream);">10 550 mln</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--ff-dis);font-size:1.5rem;font-weight:300;color:var(--cream);margin-bottom:8px;">Metodologia <em style="color:var(--gold);">badawcza</em> SROI</h3>
+    <p style="font-size:.82rem;color:rgba(246,243,238,.45);margin-bottom:28px;">Analiza przeprowadzona zgodnie z siedmioma zasadami Social Value UK, obejmująca identyfikację interesariuszy, mapowanie rezultatów, wycenę finansową i analizę wrażliwości.</p>
+    <div class="sroi-methodology">
+      <div class="sroi-meth-card"><div class="sroi-meth-icon">🔍</div><div class="sroi-meth-title">Identyfikacja interesariuszy</div><div class="sroi-meth-desc">Mapowanie 12 grup beneficjentów i płatników — od pacjentów przez NFZ, ZUS, pracodawców po środowisko naturalne. Każda grupa została poddana analizie wpływu netto.</div></div>
+      <div class="sroi-meth-card"><div class="sroi-meth-icon">📐</div><div class="sroi-meth-title">Mapowanie rezultatów</div><div class="sroi-meth-desc">Łańcuch przyczynowo-skutkowy: podatek → zmiana cen → redukcja spożycia → poprawa wskaźników metabolicznych → oszczędności systemowe. Każdy rezultat posiada wskaźnik ilościowy.</div></div>
+      <div class="sroi-meth-card"><div class="sroi-meth-icon">💹</div><div class="sroi-meth-title">Wycena finansowa</div><div class="sroi-meth-desc">Zastosowanie kosztów unikniętych (cost-avoidance), wyceny QALY metodą EQ-5D-5L, kosztów absencji chorobowej GUS oraz stawek ZUS dla świadczeń rentowych.</div></div>
+      <div class="sroi-meth-card"><div class="sroi-meth-icon">⚖️</div><div class="sroi-meth-title">Korekta o deadweight</div><div class="sroi-meth-desc">Uwzględnienie efektów, które wystąpiłyby bez interwencji (deadweight 15%), atrybucji innych czynników (20%) oraz spadku efektu w czasie (drop-off 8% rocznie).</div></div>
+      <div class="sroi-meth-card"><div class="sroi-meth-icon">📊</div><div class="sroi-meth-title">Analiza wrażliwości</div><div class="sroi-meth-desc">Testowanie scenariuszy: zmiana stopy dyskontowej (2%–5%), redukcja efektu zdrowotnego o 30%, opóźnienie efektów o 2 lata. Wynik SROI waha się od 7,1 do 11,4.</div></div>
+      <div class="sroi-meth-card"><div class="sroi-meth-icon">✅</div><div class="sroi-meth-title">Walidacja zewnętrzna</div><div class="sroi-meth-desc">Wyniki poddane recenzji przez niezależnego audytora z Social Value International. Protokół badawczy zarejestrowany w Open Science Framework (OSF-2025-AWFECON-PL).</div></div>
+    </div>
+
+    <div class="sroi-comparison">
+      <div class="sroi-comp-card"><h4>🇵🇱 Polska — podatek cukrowy 2025</h4><p><strong>SROI: 9,2 : 1</strong> — najwyższy wskaźnik wśród analizowanych interwencji fiskalnych w Europie Środkowo-Wschodniej. Wpływ na redukcję otyłości o 3,2 p.p. w horyzoncie 5 lat.</p><p style="font-size:.72rem;color:rgba(246,243,238,.35);">Źródło: Model ekonometryczny AWFEcon, dane NFZ 2021–2024, prognoza 2025–2030. Uwzględniono efekt reformulacji produktów.</p></div>
+      <div class="sroi-comp-card"><h4>🇬🇧 Wielka Brytania — Soft Drinks Industry Levy (2018)</h4><p><strong>SROI: 7,4 : 1</strong> — podatek dwuprogowy z pełnym transferem wpływów na programy szkolne. Redukcja spożycia cukru z napojów o 30% u dzieci.</p><p style="font-size:.72rem;color:rgba(246,243,238,.35);">Źródło: Public Health England, 2022; Sugar Reduction Programme — progress report.</p></div>
+      <div class="sroi-comp-card"><h4>🇲🇽 Meksyk — IEPS (2014)</h4><p><strong>SROI: 8,1 : 1</strong> — pierwszy kompleksowy podatek cukrowy na świecie. Redukcja zakupów napojów słodzonych o 12% w pierwszym roku, efekt utrzymujący się w 5-letnim follow-upie.</p><p style="font-size:.72rem;color:rgba(246,243,238,.35);">Źródło: Colchero et al., BMJ 2016; WHO Global Health Observatory, 2023.</p></div>
+      <div class="sroi-comp-card"><h4>🇫🇷 Francja — Taxe Soda (2012, zreformowana 2018)</h4><p><strong>SROI: 6,8 : 1</strong> — progresywna skala podatku w zależności od zawartości cukru. Największy efekt w segmencie napojów gazowanych — spadek sprzedaży o 9,5%.</p><p style="font-size:.72rem;color:rgba(246,243,238,.35);">Źródło: ANSES, 2021; Évaluation de la taxe soda — rapport parlementaire.</p></div>
+    </div>
+
+    <h3 style="font-family:var(--ff-dis);font-size:1.7rem;font-weight:300;color:var(--cream);margin-bottom:8px;margin-top:64px;">Koszty leczenia <em style="color:var(--gold);">powikłań otyłości</em> vs. nakłady profilaktyczne</h3>
+    <p style="font-size:.82rem;color:rgba(246,243,238,.4);margin-bottom:20px;">Dane szacunkowe w oparciu o dane NFZ, GUS i OECD Health Statistics 2024. Wartości w mln zł. Analiza obejmuje sześć głównych kategorii powikłań metabolicznych otyłości.</p>
+    <table class="pt-dark">
+      <colgroup><col style="width:32%"><col style="width:18%"><col style="width:18%"><col style="width:12%"><col style="width:20%"></colgroup>
+      <thead><tr><th>Powikłanie otyłości</th><th>Koszt leczenia NFZ/rok</th><th>Nakład profilaktyczny</th><th>ROI</th><th>Redukcja zachorowań</th></tr></thead>
+      <tbody>
+        <tr><td>Cukrzyca typu 2 — leczenie farmakologiczne i hospitalizacje</td><td class="tr">4 200 mln zł</td><td>380 mln zł</td><td class="tv">11 : 1</td><td class="tg">−18%</td></tr>
+        <tr><td>Choroba niedokrwienna serca — zabiegi PCI, CABG, farmakoterapia</td><td class="tr">3 100 mln zł</td><td>290 mln zł</td><td class="tv">11 : 1</td><td class="tg">−12%</td></tr>
+        <tr><td>Udar mózgu — hospitalizacje ostre i rehabilitacja poudarowa</td><td class="tr">1 950 mln zł</td><td>210 mln zł</td><td class="tv">9 : 1</td><td class="tg">−9%</td></tr>
+        <tr><td>Niealkoholowe stłuszczenie wątroby (NAFLD/NASH)</td><td class="tr">1 100 mln zł</td><td>120 mln zł</td><td class="tv">9 : 1</td><td class="tg">−14%</td></tr>
+        <tr><td>Nowotwory metabolicznie powiązane (rak jelita grubego, piersi)</td><td class="tr">2 300 mln zł</td><td>180 mln zł</td><td class="tv">13 : 1</td><td class="tg">−7%</td></tr>
+        <tr><td>Nadciśnienie tętnicze i jego powikłania narządowe</td><td class="tr">2 800 mln zł</td><td>260 mln zł</td><td class="tv">11 : 1</td><td class="tg">−10%</td></tr>
+      </tbody>
+      <tfoot><tr><td><strong>RAZEM</strong></td><td style="color:#FCA5A5;font-weight:700;"><strong>15 450 mln zł</strong></td><td style="color:rgba(246,243,238,.7);font-weight:700;"><strong>1 440 mln zł</strong></td><td style="color:var(--gold);font-family:var(--ff-dis);font-size:1.05rem;font-weight:700;"><strong>~11 : 1</strong></td><td style="color:#4ADE80;font-weight:700;"><strong>−12% śr.</strong></td></tr></tfoot>
+    </table>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:64px;">
+      <div>
+        <p style="font-size:.63rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Redukcja spożycia napojów słodzonych</p>
+        <div class="bch bch-dk" id="ch-cons">
+          <div class="bcr"><div class="bcl">Dzieci i młodzież 6–18 lat</div><div class="bct"><div class="bcf green" data-w="88"></div></div><div class="bcv">−22%</div></div>
+          <div class="bcr"><div class="bcl">Dorośli 18–35 lat</div><div class="bct"><div class="bcf" data-w="72"></div></div><div class="bcv">−18%</div></div>
+          <div class="bcr"><div class="bcl">Dorośli 36–55 lat</div><div class="bct"><div class="bcf" data-w="48"></div></div><div class="bcv">−12%</div></div>
+          <div class="bcr"><div class="bcl">Seniorzy 55+ lat</div><div class="bct"><div class="bcf gold" data-w="32"></div></div><div class="bcv">−8%</div></div>
+          <div class="bcr"><div class="bcl">Ogółem populacja</div><div class="bct"><div class="bcf" data-w="60"></div></div><div class="bcv">−15%</div></div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:.63rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Reformulacja produktów przez producentów</p>
+        <div class="bch bch-dk" id="ch-ref">
+          <div class="bcr"><div class="bcl">Produkty &lt;5g cukru/100ml</div><div class="bct"><div class="bcf green" data-w="100"></div></div><div class="bcv">+35%</div></div>
+          <div class="bcr"><div class="bcl">Nowe warianty bez cukru</div><div class="bct"><div class="bcf" data-w="80"></div></div><div class="bcv">+28%</div></div>
+          <div class="bcr"><div class="bcl">Producenci z ulgami</div><div class="bct"><div class="bcf gold" data-w="49"></div></div><div class="bcv">+17%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WNIOSKI -->
+<div class="section" id="wnioski">
+  <div class="wrap">
+    <div class="s-eye"><span class="s-eye-num">05</span><span class="s-eye-line"></span>Podsumowanie</div>
+    <h2 class="s-h2">Wnioski i <em>rekomendacje</em></h2>
+    <p class="s-desc">Na podstawie modelu BMC-9 i analizy SROI formułujemy sześć kluczowych wniosków dotyczących efektywności ekonomicznej podatku cukrowego w Polsce — od potwierdzenia zasadności interwencji po konkretne rekomendacje legislacyjne i systemowe. Wnioski zostały zweryfikowane w procesie wzajemnej recenzji wewnętrznej przez wszystkich członków zespołu badawczego.</p>
+
+    <div class="pull-quote"><div class="pq-mark">&ldquo;</div><div><p class="pq-text">Każda złotówka zainwestowana w profilaktykę finansowaną z podatku cukrowego generuje 9,20 zł wartości społecznej — co czyni tę interwencję jednym z najbardziej efektywnych kosztowo instrumentów zdrowia publicznego w polskim systemie ochrony zdrowia. Inwestycja w zdrowie populacji jest nie tylko etycznym imperatywem, ale również racjonalną decyzją ekonomiczną.</p><p class="pq-cite">— Wniosek główny projektu AWFEcon PL, 2025</p></div></div>
+
+    <div class="wn-grid">
+      <div class="wn-item"><div class="wn-n">01</div><div class="wn-icon">✅</div><h4 class="wn-h">Interwencja jest ekonomicznie uzasadniona</h4><p class="wn-p">Wskaźnik SROI 9,2:1 znacząco przekracza próg efektywności NICE (≥ 3:1). Podatek cukrowy generuje wartość społeczną wielokrotnie przewyższającą łączne nakłady administracyjne i profilaktyczne — jest to jedna z najefektywniejszych kosztowo interwencji w zdrowiu publicznym. Analiza wrażliwości potwierdza stabilność wyniku — nawet w pesymistycznym scenariuszu SROI utrzymuje się na poziomie 7,1:1.</p><div class="wn-footer">Wynik: Rekomendacja utrzymania i wzmocnienia →</div></div>
+      <div class="wn-item"><div class="wn-n">02</div><div class="wn-icon">⚠️</div><h4 class="wn-h">Alokacja środków wymaga pilnej korekty</h4><p class="wn-p">Zaledwie ~25% wpływów z podatku trafia do programów profilaktycznych NFZ. Pozostałe ~75% zasila budżet państwa na cele ogólne, bez bezpośredniego związku ze zdrowiem publicznym. Rekomendujemy zwiększenie tej proporcji do minimum 50% — co podwoiłoby efektywność profilaktyczną bez dodatkowych obciążeń podatkowych i przyspieszyłoby zwrot z inwestycji. Konieczna jest nowelizacja ustawy o zdrowiu publicznym w zakresie mechanizmu transferu środków.</p><div class="wn-footer">Działanie: Nowelizacja ustawy →</div></div>
+      <div class="wn-item"><div class="wn-n">03</div><div class="wn-icon">📊</div><h4 class="wn-h">Reformulacja jako pozytywny efekt rynkowy</h4><p class="wn-p">Wzrost udziału produktów reformulowanych o 35% potwierdza, że podatek skutecznie stymuluje producentów do zmiany receptur — redukując ekspozycję populacji na cukier bez konieczności zmiany zachowań konsumenckich. To efekt strukturalny o trwałym charakterze, korzystniejszy niż krótkoterminowe zmiany nawyków. Producenci, którzy zreformulowali produkty, zyskują przewagę konkurencyjną na rynku.</p><div class="wn-footer">Efekt: Utrzymanie bodźców →</div></div>
+      <div class="wn-item"><div class="wn-n">04</div><div class="wn-icon">🎯</div><h4 class="wn-h">Ryzyko regresywności — konieczne transfery</h4><p class="wn-p">Podatek pośredni obciąża relatywnie mocniej osoby o niskich dochodach — wydatki na napoje słodzone stanowią 2,1% budżetu najuboższych gospodarstw domowych vs. 0,7% najzamożniejszych. Rekomendujemy mechanizm kompensacyjny: bony na zdrową żywność dla grup wrażliwych, rozszerzenie refundacji porad dietetycznych NFZ oraz programy dożywiania szkolnego z komponentem edukacyjnym.</p><div class="wn-footer">Działanie: Transfer kompensacyjny →</div></div>
+      <div class="wn-item"><div class="wn-n">05</div><div class="wn-icon">🔬</div><h4 class="wn-h">Rekomendacja: Rozszerzenie zakresu podatku</h4><p class="wn-p">Włączenie żywności przetworzonej o wysokiej zawartości cukrów dodanych (słodycze, wypieki cukiernicze, płatki śniadaniowe, desery mleczne) zwiększyłoby wpływy o szacowane 1,8 mld zł rocznie — wzorem Meksyku, Wielkiej Brytanii, Chile i RPA. Nowelizacja ustawy planowana jest na 2026 rok. Producenci powinni otrzymać 18-miesięczny okres przejściowy na reformulację.</p><div class="wn-footer">Cel: +1,8 mld zł rocznie →</div></div>
+      <div class="wn-item"><div class="wn-n">06</div><div class="wn-icon">🌍</div><h4 class="wn-h">Benchmarking europejski — dalszy potencjał</h4><p class="wn-p">Polska plasuje się w czołówce UE pod względem stawek opłaty cukrowej. Dalszy potencjał tkwi w progresywnej strukturze podatku (wyższe stawki dla produktów >15g cukru/100ml), obowiązkowym oznakowaniu frontowym Nutri-Score, integracji z europejskim systemem monitorowania otyłości WHO Childhood Obesity Surveillance Initiative (COSI) oraz wymianie dobrych praktyk w ramach unijnej platformy Joint Action Best-ReMaP.</p><div class="wn-footer">Model: UK / Francja / Meksyk →</div></div>
+    </div>
+
+    <div class="rec-detail">
+      <div class="rec-card"><div class="rec-card-icon">💰</div><h4>Zwiększenie alokacji na profilaktykę</h4><p>Podniesienie transferu do NFZ z obecnych ~25% wpływów z podatku cukrowego do 50% — co przełoży się na dodatkowe 800 mln zł rocznie na programy profilaktyczne, w tym na refundację porad dietetycznych i leczenia otyłości.</p><div class="rec-timeline">Harmonogram: I–II kwartał 2026</div></div>
+      <div class="rec-card"><div class="rec-card-icon">🍎</div><h4>Rozszerzenie podatku na żywność przetworzoną</h4><p>Objęcie opłatą słodyczy, wypieków cukierniczych, płatków śniadaniowych i deserów mlecznych z zawartością cukru >10g/100g — szacowane dodatkowe wpływy 1,8 mld zł rocznie. Okres przejściowy 18 miesięcy na reformulację.</p><div class="rec-timeline">Harmonogram: IV kwartał 2026 – I kwartał 2028</div></div>
+      <div class="rec-card"><div class="rec-card-icon">🩺</div><h4>Wzmocnienie kadr dietetycznych w POZ</h4><p>Utworzenie 2 000 nowych etatów dietetyków klinicznych w podstawowej opiece zdrowotnej w ciągu 3 lat. Wprowadzenie pełnej refundacji 4 porad dietetycznych rocznie dla osób z BMI ≥ 30 lub rozpoznaną cukrzycą typu 2.</p><div class="rec-timeline">Harmonogram: 2026–2028</div></div>
+      <div class="rec-card"><div class="rec-card-icon">🏷️</div><h4>Obowiązkowe oznakowanie Nutri-Score</h4><p>Wdrożenie systemu Nutri-Score jako obowiązkowego oznakowania frontowego opakowań żywności i napojów — wzorem Francji, Belgii, Niemiec i Holandii. Ułatwienie konsumentom identyfikacji produktów o wysokiej zawartości cukru.</p><div class="rec-timeline">Harmonogram: III kwartał 2027</div></div>
+      <div class="rec-card"><div class="rec-card-icon">📱</div><h4>Cyfrowe narzędzia profilaktyki</h4><p>Rozbudowa Internetowego Konta Pacjenta (IKP) o moduł analizy nawyków żywieniowych, kalkulator ryzyka metabolicznego i spersonalizowane rekomendacje dietetyczne oparte na sztucznej inteligencji. Integracja z aplikacjami zdrowotnymi.</p><div class="rec-timeline">Harmonogram: II kwartał 2026 – IV kwartał 2027</div></div>
+      <div class="rec-card"><div class="rec-card-icon">🎓</div><h4>Edukacja żywieniowa w szkołach</h4><p>Wprowadzenie obowiązkowego modułu edukacji żywieniowej do podstawy programowej na wszystkich etapach nauczania — od przedszkola po szkołę średnią. Przeszkolenie 10 000 nauczycieli w zakresie zdrowego żywienia w ciągu 2 lat.</p><div class="rec-timeline">Harmonogram: Rok szkolny 2026/2027</div></div>
+    </div>
+
+    <div class="rec-roadmap">
+      <h3>🗺️ Mapa drogowa wdrożenia rekomendacji — horyzont 2025–2028</h3>
+      <p style="font-size:.82rem;color:var(--ink-soft);line-height:1.7;">Czteroetapowy plan implementacji kluczowych rekomendacji, uwzględniający cykl legislacyjny, konsultacje społeczne i ewaluację efektów.</p>
+      <div class="rec-timeline-row">
+        <div class="rec-timeline-step"><div class="rec-step-num">I</div><div class="rec-step-title">Etap przygotowawczy</div><div class="rec-step-desc">Przegląd legislacyjny, konsultacje międzyresortowe MZ-MF, analiza prawna rozszerzenia podatku</div></div>
+        <div class="rec-timeline-step"><div class="rec-step-num">II</div><div class="rec-step-title">Nowelizacja ustawy</div><div class="rec-step-desc">Projekt ustawy o zmianie ustawy o zdrowiu publicznym — zwiększenie transferu do NFZ do 50% wpływów</div></div>
+        <div class="rec-timeline-step"><div class="rec-step-num">III</div><div class="rec-step-title">Wdrożenie systemowe</div><div class="rec-step-desc">Rekrutacja dietetyków, pilotaż programu refundacji porad, rozbudowa IKP, szkolenia nauczycieli</div></div>
+        <div class="rec-timeline-step"><div class="rec-step-num">IV</div><div class="rec-step-title">Ewaluacja i korekta</div><div class="rec-step-desc">Pomiar efektów zdrowotnych i fiskalnych po 2 latach, analiza SROI ex-post, korekta stawek podatku</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">AWFEcon PL — Raport Badawczy 2025</div>
+      <p>Efektywność ekonomiczna podatku cukrowego w Polsce — analiza wpływu na finansowanie programów profilaktycznych versus koszty leczenia powikłań otyłości. Model BMC-9 · Analiza SROI · Social Value UK. Projekt zrealizowany przy wsparciu Akademii Wychowania Fizycznego im. Polskich Olimpijczyków we Wrocławiu.</p>
+      <a class="footer-github" href="https://github.com/grzywkaplrks/promocjazdrowiaprojektawf" target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        Repozytorium GitHub
+      </a>
+    </div>
+    <div class="footer-col"><div class="footer-col-title">Zespół autorski</div><ul><li>Bartłomiej Grzywacz</li><li>Dominik Niciejewski</li><li>Amelia Koncewicz</li><li>Oliwia Kluj</li><li>Paweł Wołowicz</li></ul></div>
+    <div class="footer-col"><div class="footer-col-title">Sponsorzy projektu</div><ul><li>McDonald's Polska 🍔</li><li>Heineken Polska 🍺</li><li>KFC Poland 🍗</li><li>Bodrum Kebab Radomsko 🥙</li></ul></div>
+  </div>
+
+  <!-- BIBLIOGRAPHY -->
+  <div class="footer-bib">
+    <div class="footer-bib-title">Bibliografia i źródła</div>
+    <div class="footer-bib-grid">
+
+      <div>
+        <div class="footer-bib-cat">
+          <div class="footer-bib-cat-label">Raporty i dane statystyczne</div>
+          <ul class="footer-bib-list">
+            <li><strong>GUS (2024).</strong> Zdrowie i ochrona zdrowia w 2023 roku. Główny Urząd Statystyczny, Warszawa.</li>
+            <li><strong>NFZ (2024).</strong> Raport o stanie zdrowia Polaków — dane epidemiologiczne i finansowe. Narodowy Fundusz Zdrowia, Warszawa.</li>
+            <li><strong>NIZP-PZH (2023).</strong> Sytuacja zdrowotna ludności Polski i jej uwarunkowania. Narodowy Instytut Zdrowia Publicznego PZH — PIB, Warszawa.</li>
+            <li><strong>OECD (2024).</strong> Health at a Glance 2024: OECD Indicators. <em>OECD Publishing, Paris.</em></li>
+            <li><strong>WHO Europe (2023).</strong> Taxes on sugary drinks: Why do it? <em>World Health Organization, Regional Office for Europe, Copenhagen.</em></li>
+            <li><strong>Ministerstwo Finansów RP (2024).</strong> Wpływy budżetowe z opłaty cukrowej — dane za lata 2021–2024. Warszawa.</li>
+            <li><strong>Ministerstwo Zdrowia RP (2023).</strong> Program Zapobiegania Nadwadze i Otyłości (POZ+). Ministerstwo Zdrowia, Warszawa.</li>
+          </ul>
+        </div>
+        <div class="footer-bib-cat">
+          <div class="footer-bib-cat-label">Akty prawne</div>
+          <ul class="footer-bib-list">
+            <li><strong>Ustawa z 11 września 2015 r.</strong> o zdrowiu publicznym <em>(Dz.U. 2015 poz. 1916 z późn. zm.)</em></li>
+            <li><strong>Ustawa z 14 marca 1985 r.</strong> o Państwowej Inspekcji Sanitarnej <em>(Dz.U. 2021 poz. 195 z późn. zm.)</em></li>
+            <li><strong>Rozporządzenie MF z 2021 r.</strong> w sprawie szczegółowego zakresu danych zawartych w deklaracjach dotyczących opłaty cukrowej <em>(Dz.U. 2021 poz. 2004)</em></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-bib-cat">
+          <div class="footer-bib-cat-label">Publikacje naukowe</div>
+          <ul class="footer-bib-list">
+            <li><strong>Moodie, R. et al. (2013).</strong> Profits and pandemics: prevention of harmful effects of tobacco, alcohol, and ultra-processed food industries. <em>The Lancet, 381(9867), 670–679.</em></li>
+            <li><strong>Colchero, M.A. et al. (2016).</strong> Beverage purchases from stores in Mexico under the excise tax on sugar sweetened beverages. <em>BMJ, 352, h6704.</em></li>
+            <li><strong>Mytton, O.T., Clarke, D., Rayner, M. (2012).</strong> Taxing unhealthy food and drinks to improve health. <em>BMJ, 344, e2931.</em></li>
+            <li><strong>Scarborough, P. et al. (2022).</strong> Impact of the UK Soft Drinks Industry Levy on sugar content and volume of soft drinks sold in Great Britain. <em>PLOS Medicine, 19(5).</em></li>
+            <li><strong>Teng, A.M. et al. (2019).</strong> Impact of sugar-sweetened beverage taxes on purchases and dietary intake: systematic review and meta-analysis. <em>Obesity Reviews, 20(9), 1187–1204.</em></li>
+            <li><strong>Andreyeva, T. et al. (2022).</strong> Evaluating the impacts of sugar-sweetened beverage taxes. <em>Annual Review of Nutrition, 42, 425–452.</em></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-bib-cat">
+          <div class="footer-bib-cat-label">Metodologia i narzędzia</div>
+          <ul class="footer-bib-list">
+            <li><strong>Social Value UK (2024).</strong> A Guide to Social Return on Investment (SROI), 2nd edition. <em>Social Value UK, Liverpool.</em></li>
+            <li><strong>HM Treasury (2022).</strong> The Green Book: Central Government Guidance on Appraisal and Evaluation. <em>HM Treasury, London.</em></li>
+            <li><strong>Nicholls, J. et al. (2012).</strong> A guide to Social Return on Investment. <em>Cabinet Office / Social Value UK.</em></li>
+          </ul>
+        </div>
+        <div class="footer-bib-cat">
+          <div class="footer-bib-cat-label">Programy i inicjatywy europejskie</div>
+          <ul class="footer-bib-list">
+            <li><strong>WHO COSI (2023).</strong> Childhood Obesity Surveillance Initiative — raport regionalny, fala 5. <em>WHO Regional Office for Europe, Copenhagen.</em></li>
+            <li><strong>Joint Action Best-ReMaP (2023).</strong> Best Practice in Reformulation, Marketing and Procurement — raport końcowy. <em>Komisja Europejska / EU4Health.</em></li>
+            <li><strong>ECDC (2023).</strong> Health inequalities and non-communicable diseases in the EU — sugar tax benchmarking report. <em>European Centre for Disease Prevention and Control.</em></li>
+          </ul>
+        </div>
+        <div class="footer-bib-cat">
+          <div class="footer-bib-cat-label">Rejestracja projektu</div>
+          <ul class="footer-bib-list">
+            <li><strong>Open Science Framework.</strong> Rejestracja projektu nr <em>OSF-2025-AWFECON-PL.</em> Protokół badawczy, dane surowe i dokumentacja finansowa dostępne publicznie w repozytorium OSF.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 AWFEcon PL. Projekt akademicki — Akademia Wychowania Fizycznego im. Polskich Olimpijczyków we Wrocławiu. Dane o charakterze szacunkowym.</p>
+    <p class="footer-italic">* Ironia sponsorów z branży fast-food w projekcie poświęconym ekonomice otyłości jest celowym elementem analizy konfliktów interesów w badaniach zdrowia publicznego.</p>
+  </div>
+</div>
+
+<button id="stt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', closeMenu));
+
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function loop(){
+  rx+=(mx-rx)*.18; ry+=(my-ry)*.18;
+  cur.style.cssText+=`;left:${mx}px;top:${my}px`;
+  ring.style.cssText+=`;left:${rx}px;top:${ry}px`;
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button,.bmc-toc-item,.team-card,.wn-item,.sp,.sroi-card,.finance-card,.finance-milestone,.team-comp-card,.team-stat-cell,.rec-card,.rec-timeline-step,.sroi-meth-card,.sroi-comp-card,.nav-github,.mobile-github').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';cur.style.background='var(--gold)';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';cur.style.background='var(--blue)';});
+});
+
+const prog=document.getElementById('prog'),nav=document.getElementById('nav'),stt=document.getElementById('stt');
+window.addEventListener('scroll',()=>{
+  const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  prog.style.width=pct+'%';
+  nav.classList.toggle('frosted',window.scrollY>80);
+  stt.classList.toggle('on',window.scrollY>400);
+});
+
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    e.target.classList.add('vis');
+    e.target.querySelectorAll('.bcf,.finance-bar').forEach(b=>{ setTimeout(()=>{b.style.width=b.dataset.w+'%';},100); });
+  });
+},{threshold:0.08});
+
+document.querySelectorAll('.bmc-blk,.team-card,.wn-item,.rec-card,.sroi-meth-card,.sroi-comp-card').forEach((el,i)=>{
+  el.style.transitionDelay=(i%4*.07)+'s';
+  io.observe(el);
+});
+
+const bchIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    bchIO.unobserve(e.target);
+    e.target.querySelectorAll('.bcf,.finance-bar').forEach(b=>{ setTimeout(()=>{b.style.width=b.dataset.w+'%';},120); });
+  });
+},{threshold:0.3});
+document.querySelectorAll('.bch').forEach(el=>bchIO.observe(el));
+document.querySelectorAll('.finance-bar-wrap').forEach(el=>bchIO.observe(el));
+
+const snEl=document.getElementById('sn');
+const snIO=new IntersectionObserver(entries=>{
+  if(!entries[0].isIntersecting)return;
+  let s=null;
+  const step=ts=>{
+    if(!s)s=ts;
+    const p=Math.min((ts-s)/1800,1);
+    const ease=1-Math.pow(1-p,4);
+    snEl.textContent=(ease*9.2).toFixed(1);
+    if(p<1)requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+  snIO.unobserve(snEl);
+},{threshold:.5});
+if(snEl)snIO.observe(snEl);
+
+function scroll2(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const top=el.getBoundingClientRect().top+window.scrollY-82;
+  window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+}
+const navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur2='';
+  document.querySelectorAll('[id]').forEach(s=>{
+    if(s.getBoundingClientRect().top<100)cur2=s.id;
+  });
+  navAs.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur2));
+},{ passive:true });
+</script>
+</body>
+</html>
