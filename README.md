@@ -200,8 +200,7 @@ Struktura NFZ · Alokacja środków · Efektywność POZ
 </tr>
 </table>
 
-**Instytucja realizująca:** Akademia Wychowania Fizycznego im. Polskich Olimpijczyków we Wrocławiu  
-**Rejestracja projektu:** Open Science Framework · nr `OSF-2025-AWFECON-PL`
+**Instytucja realizująca:** Akademia Wychowania Fizycznego im. Polskich Olimpijczyków we Wrocławiu
 
 ---
 
