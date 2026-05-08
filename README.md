@@ -256,7 +256,7 @@ Strona zbudowana jako **single-page HTML** bez zewnętrznych frameworków. Zasto
 
 ## 📄 Licencja i Użycie
 
-Raport ma charakter **akademicki i edukacyjny**. Dane o charakterze szacunkowym — szczegółowy protokół badawczy dostępny w repozytorium OSF (`OSF-2025-AWFECON-PL`).
+Raport ma charakter **akademicki i edukacyjny**. Dane o charakterze szacunkowym.
 
 ---
 
