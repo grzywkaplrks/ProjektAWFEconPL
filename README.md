@@ -25,7 +25,7 @@
 
 <br/>
 
-[🌐 Otwórz Raport Online](https://grzywkaplrks.github.io/promocjazdrowiaprojektawf) &nbsp;·&nbsp;
+[🌐 Otwórz Raport Online](https://projektawfeconpl.grzywkaplrks.workers.dev/) &nbsp;·&nbsp;
 [📊 Dane Surowe](#-dane-i-metodologia) &nbsp;·&nbsp;
 [👥 Zespół](#-zespół-badawczy) &nbsp;·&nbsp;
 [📚 Bibliografia](#-bibliografia)
