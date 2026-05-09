@@ -38,7 +38,7 @@
 
 Niniejszy raport analizuje **efektywność ekonomiczną polskiej opłaty cukrowej** (wprowadzonej w 2021 r.) jako systemowego narzędzia polityki zdrowia publicznego. Badanie obejmuje pełen cykl interwencji fiskalnej — od generowania wpływów budżetowych, przez finansowanie programów profilaktycznych, aż po redukcję kosztów leczenia powikłań otyłości i cukrzycy typu 2.
 
-Projekt realizowany w ramach **programu praktycznego Promocja Zdrowia** przy Akademii Wychowania Fizycznego im. Polskich Olimpijczyków we Wrocławiu, z zastosowaniem metodologii **Social Return on Investment (SROI)** zgodnej ze standardami Social Value UK oraz narzędzia analitycznego **Business Model Canvas (BMC-9)**.
+Projekt realizowany w ramach **przedmiotu Podstawy organizacji i zarzadzania w ochronie i promocji zdrowia** przy Akademii Wychowania Fizycznego im. Polskich Olimpijczyków we Wrocławiu, z zastosowaniem metodologii **Social Return on Investment (SROI)** zgodnej ze standardami Social Value UK oraz narzędzia analitycznego **Business Model Canvas (BMC-9)**.
 
 ---
 
