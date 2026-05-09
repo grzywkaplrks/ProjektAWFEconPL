@@ -656,6 +656,20 @@ nav.frosted .hamburger span { background:var(--ink); }
   /* overflow-x:hidden na obu html i body tworzy niejednoznaczny kontener
      scroll na iOS — clip nie tworzy BFC więc scroll działa poprawnie */
   body { overflow-x: clip; }
+  /* ANDROID FIX: html overflow-x:hidden też zamienamy na clip */
+  html { overflow-x: clip; }
+  /* ANDROID FIX: scroll-behavior:smooth koliduje z natywnym momentum
+     scrollem na Androidzie — na mobile wyłączamy */
+  html { scroll-behavior: auto; }
+  /* ANDROID FIX: informuj przeglądarkę że tylko pionowe przewijanie,
+     dzięki temu może użyć zoptymalizowanej ścieżki scrollowania */
+  body { touch-action: pan-y; }
+  /* ANDROID FIX: position:relative + z-index:1 na każdej sekcji tworzy
+     osobny stacking context → Chrome traktuje go jako oddzielną warstwę
+     kompozytora → przy szybkim scrollu warstwy się rozjeżdżają.
+     Usuwamy zbędne z-index — hero jest już izolowany przez isolation:isolate */
+  .section { z-index: auto; }
+  .wrap { z-index: auto; }
   /* Izoluj hero żeby warstwy GPU (video, ticker) nie wpływały na
      compositing sąsiednich sekcji podczas scrollowania */
   .hero { isolation: isolate; }
