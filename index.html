@@ -641,6 +641,26 @@ nav.frosted .hamburger span { background:var(--ink); }
 
 @media (max-width:900px) {
   nav { padding:0 20px; }
+  /* --- SCROLL PERFORMANCE: backdrop-filter na position:fixed nav wymusza
+     repaint całej strony przy każdym scrollu na iOS — zastępujemy kryjącym tłem */
+  nav {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(4,9,26,.97);
+  }
+  nav.frosted {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(246,243,238,.99);
+  }
+  /* overflow-x:hidden na obu html i body tworzy niejednoznaczny kontener
+     scroll na iOS — clip nie tworzy BFC więc scroll działa poprawnie */
+  body { overflow-x: clip; }
+  /* Izoluj hero żeby warstwy GPU (video, ticker) nie wpływały na
+     compositing sąsiednich sekcji podczas scrollowania */
+  .hero { isolation: isolate; }
+  /* Wykres SROI — jedna kolumna żeby procenty się nie ucinały */
+  .sroi-chart-row { grid-template-columns: 1fr !important; gap: 32px !important; }
   .nav-links { display:none; }
   .nav-pill  { display:none; }
   .nav-github { margin-left:auto; margin-right:8px; }
@@ -1499,7 +1519,7 @@ nav.frosted .hamburger span { background:var(--ink); }
       <tfoot><tr><td><strong>RAZEM</strong></td><td style="color:#FCA5A5;font-weight:700;"><strong>15 450 mln zł</strong></td><td style="color:rgba(246,243,238,.7);font-weight:700;"><strong>1 440 mln zł</strong></td><td style="color:var(--gold);font-family:var(--ff-dis);font-size:1.05rem;font-weight:700;"><strong>~11 : 1</strong></td><td style="color:#4ADE80;font-weight:700;"><strong>−12% śr.</strong></td></tr></tfoot>
     </table>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:64px;">
+    <div class="sroi-chart-row" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:64px;">
       <div>
         <p style="font-size:.63rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Redukcja spożycia napojów słodzonych</p>
         <div class="bch bch-dk" id="ch-cons">
